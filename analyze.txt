@@ -1,0 +1,7 @@
+Analyzing mirror_cam...                                         
+
+   info - Missing an 'await' for the 'Future' computed by this expression - lib\features\sender\providers\sender_provider.dart:149:20 - unawaited_futures
+   info - Missing an 'await' for the 'Future' computed by this expression - lib\features\sender\providers\sender_provider.dart:155:18 - unawaited_futures
+   info - Missing an 'await' for the 'Future' computed by this expression - lib\features\sender\providers\sender_provider.dart:235:22 - unawaited_futures
+   info - Missing an 'await' for the 'Future' computed by this expression - lib\features\sender\providers\sender_provider.dart:249:18 - unawaited_futures
+

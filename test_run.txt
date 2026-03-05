@@ -1,0 +1,18 @@
+00:00 +0: loading C:/Users/kayra/OneDrive/Masaüstü/MirrorCam/mirror_cam/test/services/webrtc_service_test.dart
+00:00 +0: C:/Users/kayra/OneDrive/Masaüstü/MirrorCam/mirror_cam/test/services/webrtc_service_test.dart: WebRTCService optimizeSdp removes VP8 and VP9, keeps H264 with correct attributes
+00:00 +0 -1: C:/Users/kayra/OneDrive/Masaüstü/MirrorCam/mirror_cam/test/services/webrtc_service_test.dart: WebRTCService optimizeSdp removes VP8 and VP9, keeps H264 with correct attributes [E]
+  Expected: false
+    Actual: <true>
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test\services\webrtc_service_test.dart 47:9         main.<fn>.<fn>
+  
+00:00 +0 -1: C:/Users/kayra/OneDrive/Masaüstü/MirrorCam/mirror_cam/test/services/signaling_test.dart: SignalingClient Message Parsing parses valid JSON messages and catches invalid ones without crashing
+[DEBUG-SC] WebSocket CONNECTED to ws://127.0.0.1:24674/ws
+[DEBUG-SC] RAW data received: String => {"type":"offer","data":{"sdp":"dummy"}}
+[DEBUG-SC] Parsed message type: offer
+[DEBUG-SC] RAW data received: String => invalid json {[
+[DEBUG-SC] RAW data received: String => {"type":"candidate","data":{}}
+[DEBUG-SC] Parsed message type: candidate
+00:00 +1 -1: Some tests failed.

@@ -1,0 +1,9 @@
+Launching lib\main.dart on SM S911B in debug mode...
+03-04 19:33:48.612 24024 11536 W ziparchive: Unable to open 'C:\Users\kayra\OneDrive\Masa├╝st├╝\MirrorCam\mirror_cam\build\app\outputs\flutter-apk\app-debug.apk': Illegal byte sequence
+03-04 19:33:48.612 24024 11536 W zipro   : Error opening archive C:\Users\kayra\OneDrive\Masa├╝st├╝\MirrorCam\mirror_cam\build\app\outputs\flutter-apk\app-debug.apk: I/O error
+ERROR: dump failed because resource AndroidManifest.xml not found
+Failed to extract manifest from APK: ProcessException: The command failed with exit code 1
+  Command: C:\Users\kayra\AppData\Local\Android\sdk\build-tools\36.1.0\aapt dump xmltree C:\Users\kayra\OneDrive\Masa├╝st├╝\MirrorCam\mirror_cam\build\app\outputs\flutter-apk\app-debug.apk AndroidManifest.xml.
+No application found for TargetPlatform.android_arm64.
+Is your project missing an android\app\src\main\AndroidManifest.xml?
+Consider running "flutter create ." to create one.

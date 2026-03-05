@@ -1,0 +1,33 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    missing_required_param: error
+    missing_return: error
+    parameter_assignments: warning
+    unused_local_variable: warning
+    unused_import: warning
+    dead_code: warning
+    always_declare_return_types: warning
+    annotate_overrides: warning
+    avoid_print: error # SADECE Logger utility kullanilmasi icin print'i yasakliyoruz
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+
+linter:
+  rules:
+    - always_declare_return_types
+    - cancel_subscriptions
+    - close_sinks
+    - prefer_single_quotes
+    - unawaited_futures
+    - prefer_const_constructors
+    - prefer_const_constructors_in_immutables
+    - prefer_const_declarations
+    - prefer_const_literals_to_create_immutables
+    - avoid_print
