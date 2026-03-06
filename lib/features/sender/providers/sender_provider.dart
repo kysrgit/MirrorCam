@@ -28,6 +28,8 @@ class SenderState {
   final RTCVideoRenderer? localRenderer;
   final int latencyMs;
   final String? errorMessage;
+  final bool isTorchOn;
+  final bool isTorchAvailable;
 
   const SenderState({
     this.status = ConnectionStatus.initializing,
@@ -36,6 +38,8 @@ class SenderState {
     this.localRenderer,
     this.latencyMs = 0,
     this.errorMessage,
+    this.isTorchOn = false,
+    this.isTorchAvailable = false,
   });
 
   SenderState copyWith({
@@ -45,6 +49,8 @@ class SenderState {
     RTCVideoRenderer? localRenderer,
     int? latencyMs,
     String? errorMessage,
+    bool? isTorchOn,
+    bool? isTorchAvailable,
   }) {
     return SenderState(
       status: status ?? this.status,
@@ -53,6 +59,8 @@ class SenderState {
       localRenderer: localRenderer ?? this.localRenderer,
       latencyMs: latencyMs ?? this.latencyMs,
       errorMessage: errorMessage ?? this.errorMessage,
+      isTorchOn: isTorchOn ?? this.isTorchOn,
+      isTorchAvailable: isTorchAvailable ?? this.isTorchAvailable,
     );
   }
 }
@@ -84,6 +92,11 @@ class SenderNotifier extends _$SenderNotifier {
 
     _initSender();
     return const SenderState();
+  }
+
+  Future<void> toggleTorch() async {
+    final result = await _cameraStreamer.toggleTorch();
+    state = state.copyWith(isTorchOn: result);
   }
 
   Future<void> _initSender() async {
@@ -154,6 +167,12 @@ class SenderNotifier extends _$SenderNotifier {
       _signalingServer.messages.listen((message) {
         _handleSignalingMessage(message);
       });
+
+      final torchAvailable = await _cameraStreamer.isTorchAvailable;
+      state = state.copyWith(
+        isTorchAvailable: torchAvailable,
+        isTorchOn: false,
+      );
     } catch (e, st) {
       Logger.error('Sender başlatılırken hata oluştu', e, st);
       state = state.copyWith(
@@ -168,7 +187,7 @@ class SenderNotifier extends _$SenderNotifier {
     state = state.copyWith(status: ConnectionStatus.connected);
     await SoundService.playConnected();
 
-    // Ping/Pong için dinleme
+    // Ping/Pong + Remote Command için dinleme
     _webrtcService.onDataChannelMessage = (message) {
       if (message.startsWith('pong:')) {
         final parts = message.split(':');
@@ -196,7 +215,15 @@ class SenderNotifier extends _$SenderNotifier {
             state = state.copyWith(latencyMs: _ema.round());
           }
         }
+      } else if (message.startsWith('cmd:')) {
+        _handleRemoteCommand(message);
       }
+    };
+
+    // DataChannel açıldığında fener durumunu bildir
+    _webrtcService.onDataChannelOpen = () {
+      Logger.info('DataChannel açıldı, fener durumu gönderiliyor...');
+      unawaited(_sendInitialTorchStatus());
     };
 
     // WebRTC bağlantısını kur ve SDP Offer oluştur
@@ -260,6 +287,79 @@ class SenderNotifier extends _$SenderNotifier {
     });
   }
 
+  // ─── Fener Remote Control ───────────────────────────────────────
+
+  /// Receiver'dan gelen remote komutları işler
+  void _handleRemoteCommand(String data) {
+    final parts = data.split(':');
+    // parts[0] = "cmd", parts[1] = hedef, parts[2] = aksiyon
+    if (parts.length >= 3 && parts[1] == 'torch') {
+      switch (parts[2]) {
+        case 'toggle':
+          _handleTorchToggle();
+        case 'on':
+          _handleTorchOn();
+        case 'off':
+          _handleTorchOff();
+      }
+    }
+  }
+
+  /// Fener toggle komutu (Receiver'dan gelen)
+  Future<void> _handleTorchToggle() async {
+    try {
+      final result = await _cameraStreamer.toggleTorch();
+      state = state.copyWith(isTorchOn: result);
+      _sendStatus('torch', result ? 'on' : 'off');
+    } catch (e) {
+      Logger.warning('Torch toggle hatası: $e');
+      _sendStatus('torch', 'error');
+    }
+  }
+
+  /// Feneri aç komutu
+  Future<void> _handleTorchOn() async {
+    try {
+      if (!_cameraStreamer.isTorchOn) {
+        final result = await _cameraStreamer.toggleTorch();
+        state = state.copyWith(isTorchOn: result);
+      }
+      _sendStatus('torch', 'on');
+    } catch (e) {
+      Logger.warning('Torch on hatası: $e');
+      _sendStatus('torch', 'error');
+    }
+  }
+
+  /// Feneri kapat komutu
+  Future<void> _handleTorchOff() async {
+    try {
+      if (_cameraStreamer.isTorchOn) {
+        final result = await _cameraStreamer.toggleTorch();
+        state = state.copyWith(isTorchOn: result);
+      }
+      _sendStatus('torch', 'off');
+    } catch (e) {
+      Logger.warning('Torch off hatası: $e');
+      _sendStatus('torch', 'error');
+    }
+  }
+
+  /// Status mesajı gönderir (DataChannel üzerinden Receiver'a)
+  void _sendStatus(String target, String value) {
+    _webrtcService.sendDataChannelMessage('status:$target:$value');
+  }
+
+  /// Bağlantı kurulduğunda Receiver'a fener durumunu bildirir
+  Future<void> _sendInitialTorchStatus() async {
+    final available = await _cameraStreamer.isTorchAvailable;
+    if (!available) {
+      _sendStatus('torch', 'unavailable');
+    } else {
+      _sendStatus('torch', _cameraStreamer.isTorchOn ? 'on' : 'off');
+    }
+  }
+
   Future<void> _handleSignalingMessage(Map<String, dynamic> message) async {
     final type = message['type'] as String?;
     final data = message['data'] as Map<String, dynamic>?;
@@ -299,7 +399,7 @@ class SenderNotifier extends _$SenderNotifier {
   Future<void> disconnect() async {
     _signalingServer.sendMessage({'type': 'bye', 'data': <String, dynamic>{}});
     await _resetWebRTC();
-    state = state.copyWith(status: ConnectionStatus.waiting);
+    state = state.copyWith(status: ConnectionStatus.waiting, isTorchOn: false);
     await SoundService.playDisconnected();
   }
 

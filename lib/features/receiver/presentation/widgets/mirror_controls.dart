@@ -12,6 +12,15 @@ class MirrorControls extends StatelessWidget {
   /// Gecikme göstergesi (ms)
   final int latencyMs;
 
+  /// Torch (Fener) acik mi?
+  final bool isTorchOn;
+
+  /// Torch (Fener) mevcut mu?
+  final bool isTorchAvailable;
+
+  /// Torch islemde mi? (loading)
+  final bool isTorchLoading;
+
   /// Bağlantı durumu metni
   final String connectionStatus;
 
@@ -20,6 +29,9 @@ class MirrorControls extends StatelessWidget {
 
   /// Zoom değişim callback
   final ValueChanged<double> onZoomChanged;
+
+  /// Fener ac/kapat toggle callback
+  final VoidCallback onToggleTorch;
 
   /// Bağlantıyı kes callback
   final VoidCallback onDisconnect;
@@ -31,8 +43,12 @@ class MirrorControls extends StatelessWidget {
     required this.zoomLevel,
     required this.latencyMs,
     required this.connectionStatus,
+    required this.isTorchOn,
+    required this.isTorchAvailable,
+    required this.isTorchLoading,
     required this.onToggleMirror,
     required this.onZoomChanged,
+    required this.onToggleTorch,
     required this.onDisconnect,
   });
 
@@ -140,6 +156,20 @@ class MirrorControls extends StatelessWidget {
                 isActive: isMirrored,
                 onTap: onToggleMirror,
               ),
+
+              // Torch toggle (Fener)
+              if (isTorchAvailable) ...[
+                _ControlButton(
+                  icon: isTorchLoading
+                      ? Icons.hourglass_empty
+                      : (isTorchOn
+                            ? Icons.flashlight_on
+                            : Icons.flashlight_off),
+                  label: 'Fener',
+                  isActive: isTorchOn && !isTorchLoading,
+                  onTap: isTorchLoading ? () {} : onToggleTorch,
+                ),
+              ],
 
               // Bağlantıyı kes
               _ControlButton(

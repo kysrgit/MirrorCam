@@ -17,6 +17,9 @@ class WebRTCService {
   /// DataChannel üzerinden mesaj geldiğinde çağrılacak callback
   void Function(String message)? onDataChannelMessage;
 
+  /// DataChannel açıldığında çağrılacak callback
+  void Function()? onDataChannelOpen;
+
   /// Sender için PeerConnection oluşturur (sadece video gönderir, almaz)
   Future<RTCPeerConnection?> createConnection() async {
     try {
@@ -28,18 +31,18 @@ class WebRTCService {
 
       final constraints = <String, dynamic>{
         'mandatory': {
-          'OfferToReceiveAudio': false,
-          'OfferToReceiveVideo': false,
+          'OfferToReceiveAudio': 'false',
+          'OfferToReceiveVideo': 'false',
         },
         'optional': [
-          {'DtlsSrtpKeyAgreement': true},
+          {'DtlsSrtpKeyAgreement': 'true'},
           // Google-spesifik düşük gecikme flag'leri (sadece Sender'da - Encoder için)
-          {'googHighStartBitrate': 4000},
-          {'googPayloadPadding': true},
-          {'googScreencastMinBitrate': 4000},
-          {'googCpuOveruseDetection': false},
-          {'googCpuOveruseEncodeUsage': false},
-          {'googCpuUnderuseThreshold': 55},
+          {'googHighStartBitrate': '4000'},
+          {'googPayloadPadding': 'true'},
+          {'googScreencastMinBitrate': '4000'},
+          {'googCpuOveruseDetection': 'false'},
+          {'googCpuOveruseEncodeUsage': 'false'},
+          {'googCpuUnderuseThreshold': '55'},
         ],
       };
 
@@ -66,6 +69,12 @@ class WebRTCService {
           onDataChannelMessage?.call(message.text);
         }
       };
+      dataChannel!.onDataChannelState = (RTCDataChannelState dcState) {
+        if (dcState == RTCDataChannelState.RTCDataChannelOpen) {
+          Logger.info('DataChannel açıldı');
+          onDataChannelOpen?.call();
+        }
+      };
 
       _setupConnectionStateListeners();
       Logger.info('RTCPeerConnection başarıyla oluşturuldu (Sender)');
@@ -87,11 +96,11 @@ class WebRTCService {
 
       final constraints = <String, dynamic>{
         'mandatory': {
-          'OfferToReceiveAudio': false,
-          'OfferToReceiveVideo': true,
+          'OfferToReceiveAudio': 'false',
+          'OfferToReceiveVideo': 'true',
         },
         'optional': [
-          {'DtlsSrtpKeyAgreement': true},
+          {'DtlsSrtpKeyAgreement': 'true'},
         ],
       };
 
@@ -137,8 +146,19 @@ class WebRTCService {
   void _setupTrackListener() {
     peerConnection?.onTrack = (RTCTrackEvent event) {
       Logger.info('Remote track alındı: ${event.track.kind}');
+
       if (event.streams.isNotEmpty) {
         onRemoteStream?.call(event.streams[0]);
+      }
+      if (event.track.kind == 'video') {
+        try {
+          if (event.receiver != null) {
+            (event.receiver as dynamic).jitterBufferTarget = Duration.zero;
+          }
+          Logger.info('Jitter buffer → zero (hardcoded)');
+        } catch (e) {
+          Logger.warning('Jitter buffer ayarlanamadı: $e');
+        }
       }
     };
   }
@@ -399,7 +419,7 @@ class WebRTCService {
     onRemoteStream = null;
     onIceConnectionState = null;
     onDataChannelMessage = null;
-
+    onDataChannelOpen = null;
     await dataChannel?.close();
     dataChannel = null;
 

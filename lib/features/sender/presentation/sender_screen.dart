@@ -6,6 +6,8 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../../../core/utils/permission_utils.dart';
+import '../../../../shared/widgets/connection_info_card.dart';
+import '../../settings/providers/settings_provider.dart';
 import '../providers/sender_provider.dart';
 import 'widgets/qr_display.dart';
 
@@ -20,6 +22,8 @@ class SenderScreen extends ConsumerStatefulWidget {
 
 class _SenderScreenState extends ConsumerState<SenderScreen>
     with WidgetsBindingObserver {
+  bool _showConnectionInfo = false;
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +67,16 @@ class _SenderScreenState extends ConsumerState<SenderScreen>
 
   @override
   Widget build(BuildContext context) {
+    // Bağlantı durumu değiştiğinde bağlantı bilgi kartını göster
+    ref.listen<SenderState>(senderNotifierProvider, (previous, next) {
+      if (previous?.status != ConnectionStatus.connected &&
+          next.status == ConnectionStatus.connected) {
+        setState(() {
+          _showConnectionInfo = true;
+        });
+      }
+    });
+
     final senderState = ref.watch(senderNotifierProvider);
     final notifier = ref.read(senderNotifierProvider.notifier);
 
@@ -112,6 +126,23 @@ class _SenderScreenState extends ConsumerState<SenderScreen>
                   ),
                 ),
               ),
+
+            // Bağlantı Bilgi Kartı
+            if (_showConnectionInfo)
+              ConnectionInfoCard(
+                ipAddress: senderState.localIp ?? '',
+                qualityProfile: ref
+                    .watch(settingsNotifierProvider)
+                    .qualityProfile,
+                latencyMs: senderState.latencyMs,
+                onDismiss: () {
+                  if (mounted) {
+                    setState(() {
+                      _showConnectionInfo = false;
+                    });
+                  }
+                },
+              ),
           ],
         ),
       ),
@@ -155,6 +186,7 @@ class _SenderScreenState extends ConsumerState<SenderScreen>
     }
 
     if (state.status == ConnectionStatus.connected) {
+      final settings = ref.watch(settingsNotifierProvider);
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -168,6 +200,73 @@ class _SenderScreenState extends ConsumerState<SenderScreen>
           Text(
             'Kamera akışı şu anda iletiliyor.',
             style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(height: 24),
+
+          // Durum İkonları
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: Colors.green.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
+            ),
+            child: Column(
+              children: [
+                if (state.isTorchAvailable) ...[
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        state.isTorchOn
+                            ? Icons.flashlight_on
+                            : Icons.flashlight_off,
+                        color: state.isTorchOn ? Colors.amber : Colors.grey,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        state.isTorchOn ? 'Fener Açık' : 'Fener Kapalı',
+                        style: TextStyle(
+                          color: state.isTorchOn ? Colors.amber : Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                ],
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.hd, color: Colors.green, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${settings.qualityProfile.label} · ${settings.qualityProfile.height}p${settings.qualityProfile.fps}',
+                      style: const TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.speed, color: Colors.green, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Gecikme: ${state.latencyMs} ms',
+                      style: const TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 48),
           ElevatedButton.icon(

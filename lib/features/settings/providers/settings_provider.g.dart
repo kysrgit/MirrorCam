@@ -6,23 +6,7 @@ part of 'settings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$settingsNotifierHash() => r'29f37041a6c114a06035b62a4a6940ab6456a162';
-
-/// See also [SettingsNotifier].
-@ProviderFor(SettingsNotifier)
-final settingsNotifierProvider =
-    NotifierProvider<SettingsNotifier, SettingsState>.internal(
-      SettingsNotifier.new,
-      name: r'settingsNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$settingsNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$SettingsNotifier = Notifier<SettingsState>;
-String _$settingsNotifierHash() => r'20d3132c84f1696e4cbe9ebc9bf93558ca1d2ff4';
+String _$settingsNotifierHash() => r'eb13d52016c71e9dc36aa3b344c5d700318c8751';
 
 /// See also [SettingsNotifier].
 @ProviderFor(SettingsNotifier)

@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../settings/presentation/settings_screen.dart';
+import 'widgets/onboarding_sheet.dart';
 import 'widgets/role_selector.dart';
 
 /// Rol (Mod) seçiminin yapıldığı ana ekran
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   /// Sabit yapıcı
   const HomeScreen({super.key});
+
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkOnboarding();
+  }
+
+  Future<void> _checkOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
+    if (!hasSeenOnboarding && mounted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // Testlerde context bulunamama ihtimaline karşı minik bir mounted kontrolü daha
+        if (mounted) {
+          OnboardingSheet.show(context);
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +42,21 @@ class HomeScreen extends StatelessWidget {
         title: const Text('MirrorCam'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.help_outline),
+            onPressed: () {
+              OnboardingSheet.show(context);
+            },
+            tooltip: 'Kullanım Rehberi',
+          ),
+          IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (context) => const SettingsScreen(),
+                  builder: (context) => const SettingsScreen(
+                    settingsContext: SettingsContext.home,
+                  ),
                 ),
               );
             },

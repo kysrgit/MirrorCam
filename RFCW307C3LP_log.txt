@@ -1,0 +1,5 @@
+--------- beginning of main
+03-05 03:41:20.891 I/flutter (10277): [DEBUG-SERVER] sendMessage FAILED: client=false, state=null
+03-05 04:07:23.292 I/flutter (10277): [DEBUG-SERVER] sendMessage FAILED: client=false, state=null
+03-05 04:10:14.731 I/flutter (22957): [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+03-05 04:10:14.744 I/flutter (22957): The Dart VM service is listening on http://127.0.0.1:35525/4R7m-AIj-3Y=/

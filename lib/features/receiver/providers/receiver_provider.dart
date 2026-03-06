@@ -1,4 +1,3 @@
-```dart
 import 'dart:async';
 import 'dart:collection';
 
@@ -9,7 +8,6 @@ import '../../../core/utils/logger.dart';
 import '../../../core/utils/network_utils.dart';
 import '../../../shared/services/sound_service.dart';
 import '../../../shared/services/webrtc_service.dart';
-import '../../settings/providers/settings_provider.dart';
 import '../services/signaling_client.dart';
 import '../services/stream_receiver.dart';
 
@@ -34,6 +32,11 @@ class ReceiverState {
   final int latencyMs;
   final String? errorMessage;
 
+  /// Fener (torch) durumu — Sender'dan gelen status mesajlarıyla güncellenir
+  final bool isTorchOn;
+  final bool isTorchAvailable;
+  final bool isTorchLoading;
+
   const ReceiverState({
     this.status = ReceiverConnectionStatus.idle,
     this.isMirrored = false,
@@ -41,6 +44,9 @@ class ReceiverState {
     this.remoteRenderer,
     this.latencyMs = 0,
     this.errorMessage,
+    this.isTorchOn = false,
+    this.isTorchAvailable = false,
+    this.isTorchLoading = false,
   });
 
   ReceiverState copyWith({
@@ -50,6 +56,9 @@ class ReceiverState {
     RTCVideoRenderer? remoteRenderer,
     int? latencyMs,
     String? errorMessage,
+    bool? isTorchOn,
+    bool? isTorchAvailable,
+    bool? isTorchLoading,
   }) {
     return ReceiverState(
       status: status ?? this.status,
@@ -58,6 +67,9 @@ class ReceiverState {
       remoteRenderer: remoteRenderer ?? this.remoteRenderer,
       latencyMs: latencyMs ?? this.latencyMs,
       errorMessage: errorMessage ?? this.errorMessage,
+      isTorchOn: isTorchOn ?? this.isTorchOn,
+      isTorchAvailable: isTorchAvailable ?? this.isTorchAvailable,
+      isTorchLoading: isTorchLoading ?? this.isTorchLoading,
     );
   }
 }
@@ -78,6 +90,9 @@ class ReceiverNotifier extends _$ReceiverNotifier {
   /// Mesaj kuyruğu — mesajları sırayla işlemek için (race condition önleme)
   final Queue<Map<String, dynamic>> _messageQueue = Queue();
   bool _processingMessage = false;
+
+  StreamSubscription<dynamic>? _messageSubscription;
+  StreamSubscription<dynamic>? _connectionSubscription;
 
   @override
   ReceiverState build() {
@@ -115,22 +130,14 @@ class ReceiverNotifier extends _$ReceiverNotifier {
       // WiFi High Pef kilidini al
       await NetworkUtils.enableWifiHighPerformance();
 
-      // Settings'den latency modunu al
-      final settings = ref.read(settingsNotifierProvider);
-      final jitterTarget = settings.latencyMode.jitterTarget;
+      // Sinyal event'lerini dinle
+      _setupSignalingListeners();
 
       // Sinyal sunucusuna WebSocket uzerinden baglan
-      await _signalingClient.connect(
-        ip: ip,
-        port: port,
-        onMessage: _handleSignalingMessage,
-        onDisconnect: _handleSignalingDisconnect,
-      );
+      await _signalingClient.connect(ip, port);
 
-      // WebRTC servisini Jitter Buffer hedefi ile baslat
-      await _webrtcService.createConnectionForReceiver(
-        jitterBufferTarget: jitterTarget,
-      );
+      // WebRTC servisini baslat
+      await _webrtcService.createConnectionForReceiver();
 
       // Timeout: 15 saniyede receiver connected olmazsa error bas.
       Timer(const Duration(seconds: 15), () {
@@ -151,6 +158,27 @@ class ReceiverNotifier extends _$ReceiverNotifier {
       );
       await SoundService.playDisconnected();
     }
+  }
+
+  /// Sinyal mesajlarını ve bağlantı durumunu dinlemeye başlar
+  void _setupSignalingListeners() {
+    _connectionSubscription?.cancel();
+    _messageSubscription?.cancel();
+
+    _connectionSubscription = _signalingClient.onConnectionState.listen((
+      isConnected,
+    ) {
+      if (!isConnected && state.status == ReceiverConnectionStatus.connected) {
+        state = state.copyWith(status: ReceiverConnectionStatus.reconnecting);
+      }
+    });
+
+    _messageSubscription = _signalingClient.messages.listen(
+      _handleSignalingMessage,
+      onError: (dynamic error) {
+        _handleSignalingDisconnect();
+      },
+    );
   }
 
   /// Gelen sinyal mesajlarını kuyruğa ekle ve sırayla işle
@@ -193,7 +221,8 @@ class ReceiverNotifier extends _$ReceiverNotifier {
 
   /// Sender'dan gelen sinyal mesajlarını işler
   Future<void> _handleSignalingMessageInternal(
-      Map<String, dynamic> message) async {
+    Map<String, dynamic> message,
+  ) async {
     final type = message['type'] as String?;
     final data = message['data'] as Map<String, dynamic>?;
 
@@ -256,7 +285,7 @@ class ReceiverNotifier extends _$ReceiverNotifier {
         SoundService.playConnected();
       };
 
-      // DataChannel mesajlarını dinle (latency ölçümü için)
+      // DataChannel mesajlarını dinle (latency ölçümü + torch status için)
       _webrtcService.onDataChannelMessage = (message) {
         if (message.startsWith('timestamp:')) {
           final parts = message.split(':');
@@ -264,19 +293,20 @@ class ReceiverNotifier extends _$ReceiverNotifier {
             final sentOk = int.tryParse(parts[1]);
             if (sentOk != null) {
               final now = DateTime.now().millisecondsSinceEpoch;
-              // RTT (Round Trip Time) / 2 olarak gecikmeyi hesapla
               final latency = (now - sentOk) ~/ 2;
               state = state.copyWith(latencyMs: latency);
             }
           }
         } else if (message.startsWith('ping:')) {
-          // ping:<id>:<timestamp> -> pong:<id>:<timestamp> cevabi don
+          // ping:<id>:<timestamp> -> pong:<id>:<timestamp> cevabi dön
           final parts = message.split(':');
           if (parts.length == 3) {
             final pingId = parts[1];
             final originalTs = parts[2];
             _webrtcService.sendDataChannelMessage('pong:$pingId:$originalTs');
           }
+        } else if (message.startsWith('status:')) {
+          _handleRemoteStatus(message);
         }
       };
 
@@ -387,6 +417,56 @@ class ReceiverNotifier extends _$ReceiverNotifier {
   void setZoom(double zoom) {
     final clampedZoom = zoom.clamp(1.0, 5.0);
     state = state.copyWith(zoomLevel: clampedZoom);
+  }
+
+  // ─── Fener Remote Control ───────────────────────────────────────
+
+  /// Sender'dan gelen status mesajlarını işler (torch durumu vb.)
+  void _handleRemoteStatus(String data) {
+    final parts = data.split(':');
+    // parts[0] = "status", parts[1] = hedef, parts[2] = değer
+    if (parts.length >= 3 && parts[1] == 'torch') {
+      switch (parts[2]) {
+        case 'on':
+          state = state.copyWith(
+            isTorchOn: true,
+            isTorchAvailable: true,
+            isTorchLoading: false,
+          );
+        case 'off':
+          state = state.copyWith(
+            isTorchOn: false,
+            isTorchAvailable: true,
+            isTorchLoading: false,
+          );
+        case 'unavailable':
+          state = state.copyWith(
+            isTorchAvailable: false,
+            isTorchLoading: false,
+          );
+        case 'error':
+          state = state.copyWith(isTorchLoading: false);
+          Logger.warning('Fener hatası (Sender tarafından bildirildi)');
+      }
+    }
+  }
+
+  /// Receiver tarafında fener toggle komutu gönderir (DataChannel üzerinden)
+  void toggleTorch() {
+    // Debounce: loading sırasında ikinci basışı yoksay
+    if (state.isTorchLoading) return;
+
+    state = state.copyWith(isTorchLoading: true);
+
+    _webrtcService.sendDataChannelMessage('cmd:torch:toggle');
+
+    // 500ms içinde status yanıtı gelmezse loading'i kapat (timeout/rollback)
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (state.isTorchLoading) {
+        state = state.copyWith(isTorchLoading: false);
+        Logger.warning('Torch toggle yanıtı gelmedi (timeout)');
+      }
+    });
   }
 
   /// Bağlantıyı bilinçli olarak sonlandırır

@@ -1,0 +1,108 @@
+03-05 03:41:17.761 10277 10621 D FlutterWebRTCPlugin: onConnectionChangeCLOSED
+03-05 03:41:20.891 10277 10277 I flutter : [DEBUG-SERVER] sendMessage FAILED: client=false, state=null
+03-05 03:41:20.920 10277 10277 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=io.flutter.embedding.android.FlutterActivity$1@726cb65
+03-05 03:41:21.361 10277 10277 D FlutterJNI: Sending viewport metrics to the engine.
+03-05 03:41:21.365 10277 10277 W FlutterWebRTCPlugin: FlutterRTCVideoRenderer.setVideoTrack, set video track to null
+03-05 03:41:21.367 10277 10277 D FlutterWebRTCPlugin: CameraEventsHandler.waitForCameraClosed
+03-05 03:41:21.878 10277 13294 D FlutterWebRTCPlugin: CameraEventsHandler.onFirstFrameAvailable
+03-05 03:51:22.000 10277 10277 I SV[246505666 MainActivity]: windowStopped(true) false io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ........ 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 03:51:22.002 10277 10277 I SV[246505666 MainActivity]: surfaceDestroyed callback.size 1 #1 io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ........ 0,0-1080,2340}
+03-05 03:51:22.054 10277 10277 I SV[246505666 MainActivity]: onWindowVisibilityChanged(8) false io.flutter.embedding.android.FlutterSurfaceView{eb160c2 G.E...... ......I. 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:09.879 10277 10277 I SV[246505666 MainActivity]: onWindowVisibilityChanged(0) false io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:09.902 10277 10277 I SV[246505666 MainActivity]: windowStopped(false) true io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:09.905 10277 10277 I SV[246505666 MainActivity]: surfaceCreated 1 #1 io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340}
+03-05 04:07:10.009 10277 10277 I SV[246505666 MainActivity]: surfaceChanged (1080,2340) 1 #1 io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340}
+03-05 04:07:19.715 10277 10277 D WindowOnBackDispatcher: onBackInvoked, callback=io.flutter.embedding.android.FlutterActivity$1@726cb65
+03-05 04:07:19.749 10277 10277 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=io.flutter.embedding.android.FlutterActivity$1@726cb65
+03-05 04:07:20.529 10277 10277 D FlutterJNI: Sending viewport metrics to the engine.
+03-05 04:07:20.575 10277 10277 I FlutterWebRTCPlugin: getUserMedia(video): ConstraintsMap{mMap={facingMode=environment, optional=[], mandatory={minHeight=1080, minFrameRate=60, minWidth=1920}}}
+03-05 04:07:20.603 10277 10277 D FlutterWebRTCPlugin: Creating video capturer using Camera2 API.
+03-05 04:07:20.605 10277 10277 D FlutterWebRTCPlugin: Create back camera 0 succeeded
+03-05 04:07:20.616 10277 10277 D FlutterWebRTCPlugin: CameraEventsHandler.waitForCameraOpen
+03-05 04:07:20.621 10277 21268 D FlutterWebRTCPlugin: CameraEventsHandler.onCameraOpening: cameraName=0
+03-05 04:07:21.370 10277 21268 D FlutterWebRTCPlugin: CameraEventsHandler.onFirstFrameAvailable
+03-05 04:07:21.375 10277 10277 D FlutterWebRTCPlugin: Target: 1920x1080@60, Actual: 1920x1080@60
+03-05 04:07:21.377 10277 10277 D FlutterWebRTCPlugin: MediaStream id: 7bbecfc4-e6da-412e-b70c-cffe2000fb1c
+03-05 04:07:21.395 10277 10277 W FlutterWebRTCPlugin: FlutterRTCVideoRenderer.setVideoTrack, set video track to 4ca0c6b2-2d46-418d-a6e4-256310ba45de
+03-05 04:07:23.292 10277 10277 I flutter : [DEBUG-SERVER] sendMessage FAILED: client=false, state=null
+03-05 04:07:23.316 10277 10277 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=io.flutter.embedding.android.FlutterActivity$1@726cb65
+03-05 04:07:23.771 10277 10277 D FlutterJNI: Sending viewport metrics to the engine.
+03-05 04:07:23.780 10277 10277 W FlutterWebRTCPlugin: FlutterRTCVideoRenderer.setVideoTrack, set video track to null
+03-05 04:07:23.780 10277 10277 D FlutterWebRTCPlugin: CameraEventsHandler.waitForCameraClosed
+03-05 04:07:24.094 10277 21268 D FlutterWebRTCPlugin: CameraEventsHandler.onFirstFrameAvailable
+03-05 04:07:26.962 10277 10277 D WindowOnBackDispatcher: onBackInvoked, callback=io.flutter.embedding.android.FlutterActivity$1@726cb65
+03-05 04:07:26.985 10277 10277 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=io.flutter.embedding.android.FlutterActivity$1@726cb65
+03-05 04:07:28.196 10277 10277 I SV[246505666 MainActivity]: windowStopped(true) false io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ........ 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:28.197 10277 10277 I SV[246505666 MainActivity]: surfaceDestroyed callback.size 1 #1 io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ........ 0,0-1080,2340}
+03-05 04:07:28.208 10277 10277 I SV[246505666 MainActivity]: onWindowVisibilityChanged(8) false io.flutter.embedding.android.FlutterSurfaceView{eb160c2 G.E...... ......I. 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:28.894 10277 10277 I SV[246505666 MainActivity]: onWindowVisibilityChanged(0) false io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:28.912 10277 10277 I SV[246505666 MainActivity]: windowStopped(false) true io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:28.914 10277 10277 I SV[246505666 MainActivity]: surfaceCreated 1 #1 io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340}
+03-05 04:07:28.924 10277 10277 I SV[246505666 MainActivity]: surfaceChanged (1080,2340) 1 #1 io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340}
+03-05 04:07:31.937 10277 10277 I SV[246505666 MainActivity]: onWindowVisibilityChanged(8) false io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ........ 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:31.937 10277 10277 I SV[246505666 MainActivity]: surfaceDestroyed callback.size 1 #2 io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ........ 0,0-1080,2340}
+03-05 04:07:31.951 10277 10277 I SV[246505666 MainActivity]: windowStopped(true) false io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ........ 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:32.523 10277 10277 I SV[246505666 MainActivity]: onWindowVisibilityChanged(0) false io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:32.537 10277 10277 I SV[246505666 MainActivity]: windowStopped(false) true io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340} of VRI[MainActivity]@f354bb1
+03-05 04:07:32.541 10277 10277 I SV[246505666 MainActivity]: surfaceCreated 1 #1 io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340}
+03-05 04:07:32.552 10277 10277 I SV[246505666 MainActivity]: surfaceChanged (1080,2340) 1 #1 io.flutter.embedding.android.FlutterSurfaceView{eb160c2 V.E...... ......ID 0,0-1080,2340}
+03-05 04:10:14.340 22957 22988 D FlutterJNI: Beginning load of flutter...
+03-05 04:10:14.372 22957 22988 D nativeloader: Load /data/app/~~tn2GP2fItYV37CBL3Yc9QQ==/com.example.mirror_cam-gaaeZP0ySXUeNfWShLU2Fg==/base.apk!/lib/arm64-v8a/libflutter.so using class loader ns clns-9 (caller=/data/app/~~tn2GP2fItYV37CBL3Yc9QQ==/com.example.mirror_cam-gaaeZP0ySXUeNfWShLU2Fg==/base.apk): ok
+03-05 04:10:14.373 22957 22988 D FlutterJNI: flutter (null) was loaded normally!
+03-05 04:10:14.600 22957 22989 I ResourceExtractor: Extracted baseline resource assets/flutter_assets/kernel_blob.bin
+03-05 04:10:14.601 22957 22989 I ResourceExtractor: Extracted baseline resource assets/flutter_assets/vm_snapshot_data
+03-05 04:10:14.642 22957 22989 I ResourceExtractor: Extracted baseline resource assets/flutter_assets/isolate_snapshot_data
+03-05 04:10:14.731 22957 23028 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+03-05 04:10:14.744 22957 23044 I flutter : The Dart VM service is listening on http://127.0.0.1:35525/4R7m-AIj-3Y=/
+03-05 04:10:14.988 22957 22957 I mple.mirror_cam: hiddenapi: Accessing hidden method Landroid/view/accessibility/AccessibilityNodeInfo;->getSourceNodeId()J (runtime_flags=0, domain=platform, api=unsupported,test-api) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+03-05 04:10:14.988 22957 22957 I mple.mirror_cam: hiddenapi: Accessing hidden method Landroid/view/accessibility/AccessibilityRecord;->getSourceNodeId()J (runtime_flags=0, domain=platform, api=unsupported) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+03-05 04:10:14.988 22957 22957 I mple.mirror_cam: hiddenapi: Accessing hidden field Landroid/view/accessibility/AccessibilityNodeInfo;->mChildNodeIds:Landroid/util/LongArray; (runtime_flags=0, domain=platform, api=unsupported) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+03-05 04:10:14.988 22957 22957 I mple.mirror_cam: hiddenapi: Accessing hidden method Landroid/util/LongArray;->get(I)J (runtime_flags=0, domain=platform, api=unsupported) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+03-05 04:10:14.995 22957 22957 D FlutterRenderer: Width is zero. 0,0
+03-05 04:10:15.598 22957 22957 I SV[84770515 MainActivity]: onWindowVisibilityChanged(0) true io.flutter.embedding.android.FlutterSurfaceView{50d7ed3 V.E...... ......I. 0,0-0,0} of VRI[MainActivity]@2a75896
+03-05 04:10:15.599 22957 22957 D FlutterRenderer: Width is zero. 0,0
+03-05 04:10:15.607 22957 22957 D FlutterJNI: Sending viewport metrics to the engine.
+03-05 04:10:15.609 22957 22957 I SV[84770515 MainActivity]: windowStopped(false) true io.flutter.embedding.android.FlutterSurfaceView{50d7ed3 V.E...... ......ID 0,0-1080,2340} of VRI[MainActivity]@2a75896
+03-05 04:10:15.615 22957 22957 I SV[84770515 MainActivity]: surfaceCreated 1 #8 io.flutter.embedding.android.FlutterSurfaceView{50d7ed3 V.E...... ......ID 0,0-1080,2340}
+03-05 04:10:15.632 22957 22957 I SV[84770515 MainActivity]: surfaceChanged (1080,2340) 1 #8 io.flutter.embedding.android.FlutterSurfaceView{50d7ed3 V.E...... ......ID 0,0-1080,2340}
+03-05 04:10:15.760 22957 22957 W FlutterWebRTCPlugin: audioFocusChangeListener [Earpiece(name=Earpiece)] Earpiece(name=Earpiece)
+03-05 04:10:15.761 22957 22957 W FlutterWebRTCPlugin: audioFocusChangeListener [Speakerphone(name=Speakerphone), Earpiece(name=Earpiece)] Speakerphone(name=Speakerphone)
+03-05 04:10:15.801 22957 22957 D FlutterJNI: Sending viewport metrics to the engine.
+03-05 04:15:29.281 22957 22957 D WindowOnBackDispatcher: onBackInvoked, callback=io.flutter.embedding.android.FlutterActivity$1@ddfec92
+03-05 04:15:29.314 22957 22957 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=io.flutter.embedding.android.FlutterActivity$1@ddfec92
+03-05 04:15:31.903 22957 22957 D FlutterJNI: Sending viewport metrics to the engine.
+03-05 04:15:32.182 22957 22957 I FlutterWebRTCPlugin: getUserMedia(video): ConstraintsMap{mMap={facingMode=environment, optional=[], mandatory={minHeight=1080, minFrameRate=60, minWidth=1920, maxFrameRate=60}}}
+03-05 04:15:32.194 22957 22957 D FlutterWebRTCPlugin: Creating video capturer using Camera2 API.
+03-05 04:15:32.195 22957 22957 D FlutterWebRTCPlugin: Create back camera 0 succeeded
+03-05 04:15:32.208 22957 22957 D FlutterWebRTCPlugin: CameraEventsHandler.waitForCameraOpen
+03-05 04:15:32.211 22957 24358 D FlutterWebRTCPlugin: CameraEventsHandler.onCameraOpening: cameraName=0
+03-05 04:15:32.974 22957 24358 D FlutterWebRTCPlugin: CameraEventsHandler.onFirstFrameAvailable
+03-05 04:15:32.974 22957 22957 D FlutterWebRTCPlugin: Target: 1920x1080@60, Actual: 1920x1080@60
+03-05 04:15:32.976 22957 22957 D FlutterWebRTCPlugin: MediaStream id: 74d4be21-bbe4-4118-aaed-1794c2763918
+03-05 04:15:33.044 22957 22957 W FlutterWebRTCPlugin: FlutterRTCVideoRenderer.setVideoTrack, set video track to f1f6bae8-7bd5-4873-9950-8cd1f7de81f7
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: Failed to handle method call
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Double
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at com.cloudwebrtc.webrtc.utils.ConstraintsMap.getDouble(ConstraintsMap.java:36)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at com.cloudwebrtc.webrtc.utils.MediaConstraintsUtils.getMapStrValue(MediaConstraintsUtils.java:90)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at com.cloudwebrtc.webrtc.utils.MediaConstraintsUtils.parseConstraints(MediaConstraintsUtils.java:72)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at com.cloudwebrtc.webrtc.utils.MediaConstraintsUtils.parseMediaConstraints(MediaConstraintsUtils.java:46)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at com.cloudwebrtc.webrtc.MethodCallHandlerImpl.peerConnectionInit(MethodCallHandlerImpl.java:1350)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at com.cloudwebrtc.webrtc.MethodCallHandlerImpl.onMethodCall(MethodCallHandlerImpl.java:352)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at io.flutter.plugin.common.MethodChannel$IncomingMethodCallHandler.onMessage(MethodChannel.java:267)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at io.flutter.embedding.engine.dart.DartMessenger.invokeHandler(DartMessenger.java:286)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at io.flutter.embedding.engine.dart.DartMessenger.lambda$dispatchMessageToQueue$0$io-flutter-embedding-engine-dart-DartMessenger(DartMessenger.java:313)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at io.flutter.embedding.engine.dart.DartMessenger$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at android.os.Handler.handleCallback(Handler.java:995)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at android.os.Handler.dispatchMessage(Handler.java:103)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at android.os.Looper.loopOnce(Looper.java:273)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at android.os.Looper.loop(Looper.java:363)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at android.app.ActivityThread.main(ActivityThread.java:10060)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at java.lang.reflect.Method.invoke(Native Method)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:632)
+03-05 04:15:37.246 22957 22957 E MethodChannel#FlutterWebRTC.Method: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:975)
+03-05 04:20:10.011 22957 22957 D FlutterJNI: Sending viewport metrics to the engine.
+03-05 04:20:10.489 22957 22957 I SV[84770515 MainActivity]: windowStopped(true) false io.flutter.embedding.android.FlutterSurfaceView{50d7ed3 V.E...... ........ 0,0-1080,2340} of VRI[MainActivity]@2a75896
+03-05 04:20:10.490 22957 22957 I SV[84770515 MainActivity]: surfaceDestroyed callback.size 1 #1 io.flutter.embedding.android.FlutterSurfaceView{50d7ed3 V.E...... ........ 0,0-1080,2340}
+03-05 04:20:10.532 22957 22957 I SV[84770515 MainActivity]: onWindowVisibilityChanged(4) false io.flutter.embedding.android.FlutterSurfaceView{50d7ed3 G.E...... ......I. 0,0-1080,2340} of VRI[MainActivity]@2a75896
+03-05 04:20:16.098 22957 24358 D FlutterWebRTCPlugin: CameraEventsHandler.onCameraError: errorDescription=Camera device could not be opened due to a device policy.
+03-05 04:20:16.105 22957 24358 D FlutterWebRTCPlugin: CameraEventsHandler.onFirstFrameAvailable

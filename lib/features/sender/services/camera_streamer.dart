@@ -51,8 +51,53 @@ class CameraStreamer {
         _localStream = null;
         Logger.info('Kamera durduruldu');
       }
+      _isTorchOn = false;
     } catch (e, st) {
       Logger.error('Kamera durdurulurken hata', e, st);
+    }
+  }
+
+  bool _isTorchOn = false;
+
+  /// Fener açık mı kapalı mı
+  bool get isTorchOn => _isTorchOn;
+
+  /// Cihazda fener var mı kontrol et
+  Future<bool> get isTorchAvailable async {
+    final videoTracks = _localStream?.getVideoTracks();
+    if (videoTracks == null || videoTracks.isEmpty) return false;
+    final videoTrack = videoTracks.first;
+
+    try {
+      return await videoTrack.hasTorch();
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// Fener (torch/flashlight) aç/kapat
+  /// Video akışını ETKİLEMEZ — sadece LED'i kontrol eder
+  Future<bool> toggleTorch() async {
+    if (_localStream == null) return false;
+
+    final videoTracks = _localStream!.getVideoTracks();
+    if (videoTracks.isEmpty) return false;
+    final videoTrack = videoTracks.first;
+
+    try {
+      final currentState = await videoTrack.hasTorch();
+      if (!currentState) {
+        Logger.warning('Bu cihazda fener desteklenmiyor');
+        return false;
+      }
+
+      _isTorchOn = !_isTorchOn;
+      await videoTrack.setTorch(_isTorchOn);
+      Logger.info('Fener: ${_isTorchOn ? "AÇIK" : "KAPALI"}');
+      return _isTorchOn;
+    } catch (e) {
+      Logger.warning('Fener kontrol hatası: $e');
+      return false;
     }
   }
 }

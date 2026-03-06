@@ -1,0 +1,203 @@
+--------- beginning of main
+03-05 03:13:40.299 I/flutter (20716): [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+03-05 03:13:40.367 I/flutter (20716): The Dart VM service is listening on http://127.0.0.1:36415/wL8fXbpo_Vg=/
+03-05 03:13:59.172 I/flutter (20716): [DEBUG-RP] connectTo called: 192.168.1.3:8765
+03-05 03:13:59.825 I/flutter (20716): [DEBUG-SC] WebSocket CONNECTED to ws://192.168.1.3:8765/ws
+03-05 03:23:56.053 I/flutter (21986): [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+03-05 03:23:56.117 I/flutter (21986): The Dart VM service is listening on http://127.0.0.1:37399/TJEUkcmiDqs=/
+03-05 03:24:00.539 I/flutter (21986): [DEBUG-RP] connectTo called: 192.168.1.3:8765
+03-05 03:24:01.133 I/flutter (21986): [DEBUG-SC] WebSocket CONNECTED to ws://192.168.1.3:8765/ws
+03-05 03:24:01.320 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"offer","data":{"sdp":"v=0\r\no=- 1150364754595753697 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE 0 1 2\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS 7654dbc7-b20f-430d-96df-af91c62211d0\r\nm=video 9 UDP/TLS/RTP/SAVPF 127 103 104 105 96 97 39 40 98 99 106 107 108\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:4Qim\r\na=ice-pwd:sGzW9Iw42gn9vRUv7jFuWcoe\r\na=ice-options:trickle renomination\r\na=fingerprint:sha-256 89:2C:05:92:47:E0:BB:C1:41:DE:62:63:2A:A8:65:B3:5E:38:B7:1B:A8:D0:48:E1:2C:B3:BC:21:28:FE:6A:D3\r\na=setup:actpass\r\na=mid:0\r\na=extmap:1 urn:ietf:params:rtp-hdrext:toffset\r\na=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=extmap:3 urn:3gpp:video-orientation\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=extmap:5 http://www.webrtc.org/experiments/rtp-hdrext/playout-delay\r\na=extmap:6 http://www.webrtc.org/experiments/rtp-hdrext/video-content-type\r\na
+03-05 03:24:01.323 I/flutter (21986): [DEBUG-SC] Parsed message type: offer
+03-05 03:24:01.324 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=offer
+03-05 03:24:01.325 I/flutter (21986): [DEBUG-RP] _handleOffer CALLED, creating PeerConnection...
+03-05 03:24:01.326 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:4207429487 1 udp 2122260223 192.168.1.3 53670 typ host generation 0 ufrag 4Qim network-id 4 network-cost 10","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:24:01.326 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:783367390 1 udp 2122063615 127.0.0.1 59034 typ host generation 0 ufrag 4Qim network-id 1","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:61401093 1 udp 2122136831 ::1 34385 typ host generation 0 ufrag 4Qim network-id 2","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:4207429487 1 udp 2122260223 192.168.1.3 50259 typ host generation 0 ufrag 4Qim network-id 4 network-cost 10","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:783367390 1 udp 2122063615 127.0.0.1 49525 typ host generation 0 ufrag 4Qim network-id 1","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:61401093 1 udp 2122136831 ::1 52285 typ host generation 0 ufrag 4Qim network-id 2","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:4207429487 1 udp 2122260223 192.168.1.3 34036 typ host generation 0 ufrag 4Qim network-id 4 network-cost 10","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:24:01.327 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.328 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:783367390 1 udp 2122063615 127.0.0.1 38786 typ host generation 0 ufrag 4Qim network-id 1","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:24:01.328 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.328 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:61401093 1 udp 2122136831 ::1 47502 typ host generation 0 ufrag 4Qim network-id 2","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:24:01.328 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.367 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1350491718 1 tcp 1518083839 127.0.0.1 39577 typ host tcptype passive generation 0 ufrag 4Qim network-id 1","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:24:01.367 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.367 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:3199491146 1 tcp 1518217471 2a02:2010:164c:2907:1899:b66b:348d:b21 9 typ host tcptype active generation 0 ufrag 4Qim network-id 3 network-cost 900","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:24:01.367 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2103904925 1 tcp 1518157055 ::1 60369 typ host tcptype passive generation 0 ufrag 4Qim network-id 2","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1350491718 1 tcp 1518083839 127.0.0.1 44539 typ host tcptype passive generation 0 ufrag 4Qim network-id 1","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:3199491146 1 tcp 1518217471 2a02:2010:164c:2907:1899:b66b:348d:b21 9 typ host tcptype active generation 0 ufrag 4Qim network-id 3 network-cost 900","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2103904925 1 tcp 1518157055 ::1 52903 typ host tcptype passive generation 0 ufrag 4Qim network-id 2","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1350491718 1 tcp 1518083839 127.0.0.1 50243 typ host tcptype passive generation 0 ufrag 4Qim network-id 1","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:24:01.368 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.369 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:3199491146 1 tcp 1518217471 2a02:2010:164c:2907:1899:b66b:348d:b21 9 typ host tcptype active generation 0 ufrag 4Qim network-id 3 network-cost 900","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:24:01.369 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.376 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2103904925 1 tcp 1518157055 ::1 36259 typ host tcptype passive generation 0 ufrag 4Qim network-id 2","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:24:01.376 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:24:01.382 I/flutter (21986): [DEBUG-RP] onRemoteStream FIRED! stream id: 7654dbc7-b20f-430d-96df-af91c62211d0
+03-05 03:24:01.547 I/flutter (21986): [DEBUG-RP] Answer SENT to Sender
+03-05 03:24:01.547 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.553 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.555 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.557 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.557 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.557 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.558 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.558 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.558 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.558 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.559 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.559 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.559 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.559 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.560 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.560 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.560 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:24:01.561 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:32:22.367 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"bye","data":{}}
+03-05 03:32:22.367 I/flutter (21986): [DEBUG-SC] Parsed message type: bye
+03-05 03:32:22.367 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=bye
+03-05 03:32:25.113 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"bye","data":{}}
+03-05 03:32:25.113 I/flutter (21986): [DEBUG-SC] Parsed message type: bye
+03-05 03:32:25.113 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=bye
+03-05 03:33:01.633 I/flutter (21986): [DEBUG-RP] connectTo called: 192.168.1.3:8765
+03-05 03:33:02.096 I/flutter (21986): [DEBUG-SC] WebSocket CONNECTED to ws://192.168.1.3:8765/ws
+03-05 03:33:02.097 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"offer","data":{"sdp":"v=0\r\no=- 5875972136436744291 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE 0 1 2\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS a45b8181-a337-4689-a372-ce3236aab7d0\r\nm=video 9 UDP/TLS/RTP/SAVPF 127 103 104 105 96 97 39 40 98 99 106 107 108\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:iQdG\r\na=ice-pwd:BVlaJWYgjOL1T+stTjsv+Z87\r\na=ice-options:trickle renomination\r\na=fingerprint:sha-256 4E:F9:3F:05:61:31:A2:14:3E:93:24:A3:6C:F4:11:83:FB:8B:EF:6D:15:DE:6D:1B:A2:A2:3D:DB:D1:FB:32:4B\r\na=setup:actpass\r\na=mid:0\r\na=extmap:1 urn:ietf:params:rtp-hdrext:toffset\r\na=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=extmap:3 urn:3gpp:video-orientation\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=extmap:5 http://www.webrtc.org/experiments/rtp-hdrext/playout-delay\r\na=extmap:6 http://www.webrtc.org/experiments/rtp-hdrext/video-content-type\r\na
+03-05 03:33:02.098 I/flutter (21986): [DEBUG-SC] Parsed message type: offer
+03-05 03:33:02.098 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=offer
+03-05 03:33:02.098 I/flutter (21986): [DEBUG-RP] _handleOffer CALLED, creating PeerConnection...
+03-05 03:33:02.098 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:698561587 1 udp 2122260223 192.168.1.3 36688 typ host generation 0 ufrag iQdG network-id 4 network-cost 10","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:33:02.098 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2500972114 1 udp 2122063615 127.0.0.1 45941 typ host generation 0 ufrag iQdG network-id 1","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2218646746 1 udp 2122136831 ::1 36990 typ host generation 0 ufrag iQdG network-id 2","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:698561587 1 udp 2122260223 192.168.1.3 47029 typ host generation 0 ufrag iQdG network-id 4 network-cost 10","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2500972114 1 udp 2122063615 127.0.0.1 44283 typ host generation 0 ufrag iQdG network-id 1","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2218646746 1 udp 2122136831 ::1 40459 typ host generation 0 ufrag iQdG network-id 2","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.100 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:698561587 1 udp 2122260223 192.168.1.3 44246 typ host generation 0 ufrag iQdG network-id 4 network-cost 10","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:33:02.101 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.101 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2500972114 1 udp 2122063615 127.0.0.1 45642 typ host generation 0 ufrag iQdG network-id 1","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:33:02.101 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.101 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2218646746 1 udp 2122136831 ::1 38620 typ host generation 0 ufrag iQdG network-id 2","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:33:02.101 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.118 I/flutter (21986): [DEBUG-RP] onRemoteStream FIRED! stream id: a45b8181-a337-4689-a372-ce3236aab7d0
+03-05 03:33:02.183 I/flutter (21986): [DEBUG-RP] Answer SENT to Sender
+03-05 03:33:02.183 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.187 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.187 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.188 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.188 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.191 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.194 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.195 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.196 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.205 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1807424198 1 tcp 1518083839 127.0.0.1 36335 typ host tcptype passive generation 0 ufrag iQdG network-id 1","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:33:02.205 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.205 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.205 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1659083887 1 tcp 1518217471 2a02:2010:164c:2907:1899:b66b:348d:b21 9 typ host tcptype active generation 0 ufrag iQdG network-id 3 network-cost 900","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:33:02.205 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.206 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2056718414 1 tcp 1518157055 ::1 33285 typ host tcptype passive generation 0 ufrag iQdG network-id 2","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:33:02.206 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.206 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1807424198 1 tcp 1518083839 127.0.0.1 47415 typ host tcptype passive generation 0 ufrag iQdG network-id 1","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:33:02.206 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.206 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1659083887 1 tcp 1518217471 2a02:2010:164c:2907:1899:b66b:348d:b21 9 typ host tcptype active generation 0 ufrag iQdG network-id 3 network-cost 900","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:33:02.206 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.207 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2056718414 1 tcp 1518157055 ::1 38675 typ host tcptype passive generation 0 ufrag iQdG network-id 2","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:33:02.207 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.207 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1807424198 1 tcp 1518083839 127.0.0.1 59623 typ host tcptype passive generation 0 ufrag iQdG network-id 1","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:33:02.207 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.207 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1659083887 1 tcp 1518217471 2a02:2010:164c:2907:1899:b66b:348d:b21 9 typ host tcptype active generation 0 ufrag iQdG network-id 3 network-cost 900","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:33:02.207 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.207 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2056718414 1 tcp 1518157055 ::1 60545 typ host tcptype passive generation 0 ufrag iQdG network-id 2","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:33:02.207 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:33:02.207 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.208 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.208 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.210 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.211 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.211 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.212 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:33:02.212 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.419 I/flutter (21986): [DEBUG-RP] connectTo called: 192.168.1.3:8765
+03-05 03:38:24.472 I/flutter (21986): [DEBUG-SC] WebSocket CONNECTED to ws://192.168.1.3:8765/ws
+03-05 03:38:24.523 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"offer","data":{"sdp":"v=0\r\no=- 7529256042589942947 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE 0 1 2\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS 154069b6-17db-473b-876c-53053db3bef6\r\nm=video 9 UDP/TLS/RTP/SAVPF 127 103 104 105 96 97 39 40 98 99 106 107 108\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:0/Oq\r\na=ice-pwd:+Agf27exVVtAi/zkD064HsW4\r\na=ice-options:trickle renomination\r\na=fingerprint:sha-256 A0:56:FD:69:D1:96:47:E6:C7:E6:DB:87:1D:0D:34:1B:96:21:F2:F5:FA:A2:DE:1F:1B:06:E3:D5:F5:9D:22:1F\r\na=setup:actpass\r\na=mid:0\r\na=extmap:1 urn:ietf:params:rtp-hdrext:toffset\r\na=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=extmap:3 urn:3gpp:video-orientation\r\na=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=extmap:5 http://www.webrtc.org/experiments/rtp-hdrext/playout-delay\r\na=extmap:6 http://www.webrtc.org/experiments/rtp-hdrext/video-content-type\r\na
+03-05 03:38:24.523 I/flutter (21986): [DEBUG-SC] Parsed message type: offer
+03-05 03:38:24.524 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=offer
+03-05 03:38:24.524 I/flutter (21986): [DEBUG-RP] _handleOffer CALLED, creating PeerConnection...
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:3842094555 1 udp 2122260223 192.168.1.3 48201 typ host generation 0 ufrag 0/Oq network-id 4 network-cost 10","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:830000746 1 udp 2122063615 127.0.0.1 37261 typ host generation 0 ufrag 0/Oq network-id 1","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:476125873 1 udp 2122136831 ::1 50233 typ host generation 0 ufrag 0/Oq network-id 2","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:3842094555 1 udp 2122260223 192.168.1.3 53683 typ host generation 0 ufrag 0/Oq network-id 4 network-cost 10","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:830000746 1 udp 2122063615 127.0.0.1 46834 typ host generation 0 ufrag 0/Oq network-id 1","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:38:24.542 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.547 I/flutter (21986): [DEBUG-RP] onRemoteStream FIRED! stream id: 154069b6-17db-473b-876c-53053db3bef6
+03-05 03:38:24.548 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:476125873 1 udp 2122136831 ::1 35217 typ host generation 0 ufrag 0/Oq network-id 2","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:38:24.548 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.548 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:3842094555 1 udp 2122260223 192.168.1.3 53266 typ host generation 0 ufrag 0/Oq network-id 4 network-cost 10","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:38:24.548 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.548 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:830000746 1 udp 2122063615 127.0.0.1 48009 typ host generation 0 ufrag 0/Oq network-id 1","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:38:24.548 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.548 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:476125873 1 udp 2122136831 ::1 52198 typ host generation 0 ufrag 0/Oq network-id 2","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:38:24.548 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.608 I/flutter (21986): [DEBUG-RP] Answer SENT to Sender
+03-05 03:38:24.608 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.611 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.617 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.620 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.621 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.621 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.622 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.622 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.622 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.675 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1337404658 1 tcp 1518083839 127.0.0.1 45605 typ host tcptype passive generation 0 ufrag 0/Oq network-id 1","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:38:24.675 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.675 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2709368574 1 tcp 1518217471 2a02:2010:164c:2907:1899:b66b:348d:b21 9 typ host tcptype active generation 0 ufrag 0/Oq network-id 3 network-cost 900","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1655633961 1 tcp 1518157055 ::1 38843 typ host tcptype passive generation 0 ufrag 0/Oq network-id 2","sdpMid":"0","sdpMLineIndex":0}}
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1337404658 1 tcp 1518083839 127.0.0.1 41947 typ host tcptype passive generation 0 ufrag 0/Oq network-id 1","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2709368574 1 tcp 1518217471 2a02:2010:164c:2907:1899:b66b:348d:b21 9 typ host tcptype active generation 0 ufrag 0/Oq network-id 3 network-cost 900","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1655633961 1 tcp 1518157055 ::1 50667 typ host tcptype passive generation 0 ufrag 0/Oq network-id 2","sdpMid":"1","sdpMLineIndex":1}}
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1337404658 1 tcp 1518083839 127.0.0.1 42131 typ host tcptype passive generation 0 ufrag 0/Oq network-id 1","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:2709368574 1 tcp 1518217471 2a02:2010:164c:2907:1899:b66b:348d:b21 9 typ host tcptype active generation 0 ufrag 0/Oq network-id 3 network-cost 900","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] RAW data received: String => {"type":"candidate","data":{"candidate":"candidate:1655633961 1 tcp 1518157055 ::1 49357 typ host tcptype passive generation 0 ufrag 0/Oq network-id 2","sdpMid":"2","sdpMLineIndex":2}}
+03-05 03:38:24.676 I/flutter (21986): [DEBUG-SC] Parsed message type: candidate
+03-05 03:38:24.677 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.677 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.679 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.680 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.680 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.680 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.681 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 03:38:24.681 I/flutter (21986): [DEBUG-RP] handleSignalingMessage: type=candidate
+03-05 04:10:08.110 I/flutter (27784): [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+03-05 04:10:08.218 I/flutter (27784): The Dart VM service is listening on http://127.0.0.1:39305/JbOcgaGcU0I=/
+03-05 04:15:37.092 I/flutter (27784): [DEBUG-RP] connectTo called: 192.168.1.3:8765
+03-05 04:15:37.461 I/flutter (27784): [DEBUG-SC] WebSocket CONNECTED to ws://192.168.1.3:8765/ws

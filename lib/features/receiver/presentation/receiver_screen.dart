@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../../shared/widgets/connection_info_card.dart';
+import '../../settings/providers/settings_provider.dart';
 import '../providers/receiver_provider.dart';
 import 'widgets/mirror_controls.dart';
 import 'widgets/qr_scanner.dart';
@@ -24,6 +26,7 @@ class ReceiverScreen extends ConsumerStatefulWidget {
 class _ReceiverScreenState extends ConsumerState<ReceiverScreen>
     with WidgetsBindingObserver {
   bool _showControls = false;
+  bool _showConnectionInfo = false;
   double _baseScale = 1.0;
 
   @override
@@ -70,6 +73,16 @@ class _ReceiverScreenState extends ConsumerState<ReceiverScreen>
 
   @override
   Widget build(BuildContext context) {
+    // Bağlantı durumu değiştiğinde bağlantı bilgi kartını göster
+    ref.listen<ReceiverState>(receiverNotifierProvider, (previous, next) {
+      if (previous?.status != ReceiverConnectionStatus.connected &&
+          next.status == ReceiverConnectionStatus.connected) {
+        setState(() {
+          _showConnectionInfo = true;
+        });
+      }
+    });
+
     final receiverState = ref.watch(receiverNotifierProvider);
     final notifier = ref.read(receiverNotifierProvider.notifier);
 
@@ -249,8 +262,12 @@ class _ReceiverScreenState extends ConsumerState<ReceiverScreen>
                   zoomLevel: state.zoomLevel,
                   latencyMs: state.latencyMs,
                   connectionStatus: _connectionStatusText(state.status),
+                  isTorchOn: state.isTorchOn,
+                  isTorchAvailable: state.isTorchAvailable,
+                  isTorchLoading: state.isTorchLoading,
                   onToggleMirror: () => notifier.toggleMirror(),
                   onZoomChanged: (zoom) => notifier.setZoom(zoom),
+                  onToggleTorch: () => notifier.toggleTorch(),
                   onDisconnect: () {
                     notifier.disconnect();
                     // System UI'yı geri getir
@@ -261,6 +278,23 @@ class _ReceiverScreenState extends ConsumerState<ReceiverScreen>
                 ),
               ),
             ),
+
+            // Bağlantı Bilgi Kartı (Bağlandığında kısa süre görünür)
+            if (_showConnectionInfo)
+              ConnectionInfoCard(
+                ipAddress: 'WiFi Bağlantısı', // Opsiyonel bilgi
+                qualityProfile: ref
+                    .watch(settingsNotifierProvider)
+                    .qualityProfile,
+                latencyMs: state.latencyMs,
+                onDismiss: () {
+                  if (mounted) {
+                    setState(() {
+                      _showConnectionInfo = false;
+                    });
+                  }
+                },
+              ),
 
             // Geri butonu (her zaman görünür, sol üst)
             Positioned(
