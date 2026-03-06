@@ -111,8 +111,7 @@ class ReceiverNotifier extends _$ReceiverNotifier {
   Future<void> connectTo(String ip, int port) async {
     try {
       state = state.copyWith(status: ReceiverConnectionStatus.connecting);
-      // ignore: avoid_print
-      print('[DEBUG-RP] connectTo called: $ip:$port');
+      Logger.debug('[DEBUG-RP] connectTo called: $ip:$port');
 
       // Önceki bağlantı state'ini sıfırla
       _pendingCandidates.clear();
@@ -229,8 +228,7 @@ class ReceiverNotifier extends _$ReceiverNotifier {
     if (type == null || data == null) return;
 
     Logger.info('Sinyal mesajı alındı: $type');
-    // ignore: avoid_print
-    print('[DEBUG-RP] handleSignalingMessage: type=$type');
+    Logger.debug('[DEBUG-RP] handleSignalingMessage: type=$type');
 
     switch (type) {
       case 'offer':
@@ -252,8 +250,7 @@ class ReceiverNotifier extends _$ReceiverNotifier {
       final type = data['type'] as String;
 
       Logger.info('SDP Offer alındı, PeerConnection kuruluyor...');
-      // ignore: avoid_print
-      print('[DEBUG-RP] _handleOffer CALLED, creating PeerConnection...');
+      Logger.debug('[DEBUG-RP] _handleOffer CALLED, creating PeerConnection...');
 
       // 1. Receiver için PeerConnection oluştur
       final pc = _webrtcService.peerConnection;
@@ -276,8 +273,7 @@ class ReceiverNotifier extends _$ReceiverNotifier {
       // 3. Remote stream geldiğinde renderer'a bağla
       _webrtcService.onRemoteStream = (MediaStream stream) {
         Logger.info('Remote video stream alındı!');
-        // ignore: avoid_print
-        print('[DEBUG-RP] onRemoteStream FIRED! stream id: ${stream.id}');
+        Logger.debug('[DEBUG-RP] onRemoteStream FIRED! stream id: ${stream.id}');
         _streamReceiver.setRemoteStream(stream);
         state = state.copyWith(status: ReceiverConnectionStatus.connected);
 
@@ -329,12 +325,10 @@ class ReceiverNotifier extends _$ReceiverNotifier {
           'data': {'sdp': answer.sdp, 'type': answer.type},
         });
         Logger.info('SDP Answer Sender\'a gönderildi');
-        // ignore: avoid_print
-        print('[DEBUG-RP] Answer SENT to Sender');
+        Logger.debug('[DEBUG-RP] Answer SENT to Sender');
       } else {
         Logger.error('Answer oluşturulamadı!');
-        // ignore: avoid_print
-        print('[DEBUG-RP] ERROR: Answer is NULL!');
+        Logger.debug('[DEBUG-RP] ERROR: Answer is NULL!');
       }
     } catch (e, st) {
       Logger.error('Offer işlenirken hata', e, st);

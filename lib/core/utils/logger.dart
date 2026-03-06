@@ -2,6 +2,11 @@ import 'dart:developer' as developer;
 
 /// Simple debug logger to replace print() statements.
 class Logger {
+  /// Log a debug message
+  static void debug(String message, [String name = 'MirrorCam']) {
+    developer.log('DEBUG: $message', name: name);
+  }
+
   /// Log an info message
   static void info(String message, [String name = 'MirrorCam']) {
     developer.log('INFO: $message', name: name);
