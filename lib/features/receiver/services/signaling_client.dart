@@ -60,19 +60,16 @@ class SignalingClient {
       _reconnectAttempts = 0;
       _connectionStateController.add(true);
       Logger.info('WebSocket bağlantısı başarıyla kuruldu');
-      // ignore: avoid_print
-      print('[DEBUG-SC] WebSocket CONNECTED to $uri');
+      Logger.info('[DEBUG-SC] WebSocket CONNECTED to $uri');
 
       // Mesajları dinle
       _subscription = _channel!.stream.listen(
         (dynamic data) {
-          // ignore: avoid_print
-          print('[DEBUG-SC] RAW data received: ${data.runtimeType} => $data');
+          Logger.info('[DEBUG-SC] RAW data received: ${data.runtimeType} => $data');
           if (data is String) {
             try {
               final json = jsonDecode(data) as Map<String, dynamic>;
-              // ignore: avoid_print
-              print('[DEBUG-SC] Parsed message type: ${json['type']}');
+              Logger.info('[DEBUG-SC] Parsed message type: ${json['type']}');
               _messageController.add(json);
             } catch (e) {
               Logger.error('Geçersiz sinyal mesajı formatı', e);
