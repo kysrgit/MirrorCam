@@ -306,6 +306,7 @@ class _ReceiverScreenState extends ConsumerState<ReceiverScreen>
                 child: IgnorePointer(
                   ignoring: !_showControls,
                   child: IconButton(
+                    tooltip: 'Geri',
                     icon: const Icon(
                       Icons.arrow_back,
                       color: Colors.white,
