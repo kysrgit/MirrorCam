@@ -27,6 +27,18 @@ class SignalingServer {
 
       _server!.listen((HttpRequest request) async {
         if (request.uri.path == '/ws') {
+          // CSWH (Cross-Site WebSocket Hijacking) Protection
+          // Reject connections that have an Origin header, as native apps don't send one by default
+          // but web browsers always send it. This prevents malicious websites from connecting
+          // to our local server.
+          final origin = request.headers.value('origin');
+          if (origin != null) {
+            Logger.warning('Rejected WebSocket connection with Origin: $origin');
+            request.response.statusCode = HttpStatus.forbidden;
+            await request.response.close();
+            return;
+          }
+
           // WebSockets'e yükseltme isteği
           final socket = await WebSocketTransformer.upgrade(request);
           _handleClientConnection(socket);
