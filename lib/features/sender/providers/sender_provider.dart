@@ -7,6 +7,7 @@ import '../../../../core/utils/network_utils.dart';
 import '../../../../core/utils/permission_utils.dart';
 import '../../../../shared/services/sound_service.dart';
 import '../../../../shared/services/webrtc_service.dart';
+import 'package:flutter/foundation.dart';
 import '../../settings/providers/settings_provider.dart';
 import '../services/camera_streamer.dart';
 import '../services/signaling_server.dart';
@@ -67,9 +68,12 @@ class SenderState {
 
 @riverpod
 class SenderNotifier extends _$SenderNotifier {
-  late final CameraStreamer _cameraStreamer;
+  late CameraStreamer _cameraStreamer;
   late final SignalingServer _signalingServer;
   late final WebRTCService _webrtcService;
+
+  @visibleForTesting
+  set cameraStreamer(CameraStreamer streamer) => _cameraStreamer = streamer;
   Timer? _latencyTimer;
 
   // Latency Smoothing (EMA) iÃ§in state
