@@ -219,20 +219,27 @@ class _ControlButton extends StatelessWidget {
       fgColor = Colors.white70;
     }
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
-            child: Icon(icon, color: fgColor, size: 26),
+    return Tooltip(
+      message: label,
+      child: Semantics(
+        button: true,
+        label: label,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
+                child: Icon(icon, color: fgColor, size: 26),
+              ),
+              const SizedBox(height: 6),
+              Text(label, style: TextStyle(color: fgColor, fontSize: 12)),
+            ],
           ),
-          const SizedBox(height: 6),
-          Text(label, style: TextStyle(color: fgColor, fontSize: 12)),
-        ],
+        ),
       ),
     );
   }
