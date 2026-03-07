@@ -83,15 +83,13 @@ class SignalingServer {
   void sendMessage(Map<String, dynamic> data) {
     if (_clientSocket != null && _clientSocket!.readyState == WebSocket.open) {
       final encoded = jsonEncode(data);
-      // ignore: avoid_print
-      print(
+      Logger.info(
         '[DEBUG-SERVER] sendMessage: type=${data['type']}, len=${encoded.length}',
       );
       _clientSocket!.add(encoded);
     } else {
       Logger.warning('Mesaj gönderilemedi: İstemci bağlı değil');
-      // ignore: avoid_print
-      print(
+      Logger.error(
         '[DEBUG-SERVER] sendMessage FAILED: client=${_clientSocket != null}, state=${_clientSocket?.readyState}',
       );
     }
