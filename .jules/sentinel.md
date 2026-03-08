@@ -1,0 +1,4 @@
+## 2024-03-08 - Fixed Cross-Site WebSocket Hijacking (CSWH) in SignalingServer
+**Vulnerability:** The local WebSocket server (`SignalingServer` at `/ws`) bound to all interfaces was accepting connections without checking the `Origin` header. This allowed malicious websites running on a browser in the same local network to make cross-origin WebSocket connections to hijack the camera stream.
+**Learning:** Native apps hosting WebSocket servers are susceptible to CSWH if they don't validate connections. Since legitimate native clients don't typically send an `Origin` header (or send a specific expected one), any request with an `Origin` header (added by browsers) to a local app server should be treated as suspicious.
+**Prevention:** Always check and restrict the `Origin` header for WebSocket upgrades on locally hosted servers to ensure only authorized or native clients can connect.
