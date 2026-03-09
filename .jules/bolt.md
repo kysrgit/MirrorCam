@@ -1,0 +1,3 @@
+## 2025-02-28 - Regex Optimization in WebRTCService
+**Learning:** Inline RegExp definitions inside loops (e.g., in `optimizeSdp` processing SDP lines) cause redundant object creation and compilation in Dart, leading to unnecessary performance overhead.
+**Action:** Extract RegExp definitions to `static final` private fields within the class to ensure they are compiled only once, improving iteration performance without sacrificing readability.
