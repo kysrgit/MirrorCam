@@ -22,6 +22,7 @@ class SignalingClient {
   /// Bağlantı bilgileri
   String? _ip;
   int? _port;
+  String _token = '';
   bool _isConnected = false;
   bool _intentionalDisconnect = false;
 
@@ -33,9 +34,10 @@ class SignalingClient {
   bool get isConnected => _isConnected;
 
   /// Sender'ın sinyal sunucusuna WebSocket bağlantısı kurar
-  Future<void> connect(String ip, int port) async {
+  Future<void> connect(String ip, int port, String token) async {
     _ip = ip;
     _port = port;
+    _token = token;
     _intentionalDisconnect = false;
     _reconnectAttempts = 0;
     await _connect();
@@ -48,7 +50,9 @@ class SignalingClient {
       await _subscription?.cancel();
       unawaited(_channel?.sink.close() ?? Future<void>.value());
 
-      final uri = Uri.parse('ws://$_ip:$_port/ws');
+      final uri = Uri.parse(
+        'ws://$_ip:$_port/ws' + (_token.isNotEmpty ? '?token=$_token' : ''),
+      );
       Logger.info('WebSocket bağlantısı kuruluyor: $uri');
 
       _channel = WebSocketChannel.connect(uri);

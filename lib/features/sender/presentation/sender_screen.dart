@@ -290,7 +290,11 @@ class _SenderScreenState extends ConsumerState<SenderScreen>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            QrDisplay(ipAddress: state.localIp!, port: state.port),
+            QrDisplay(
+              ipAddress: state.localIp!,
+              port: state.port,
+              authToken: state.authToken,
+            ),
             const SizedBox(height: 32),
             Row(
                   mainAxisAlignment: MainAxisAlignment.center,

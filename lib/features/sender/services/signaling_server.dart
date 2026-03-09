@@ -20,13 +20,35 @@ class SignalingServer {
   Stream<bool> get onClientConnected => _clientConnectedController.stream;
 
   /// Sunucuyu başlatır
-  Future<void> start({int port = 8765}) async {
+  Future<void> start({int port = 8765, String authToken = ''}) async {
     try {
       _server = await HttpServer.bind(InternetAddress.anyIPv4, port);
       Logger.info('Sinyal sunucusu $_server.address:$port üzerinde başlatıldı');
 
       _server!.listen((HttpRequest request) async {
         if (request.uri.path == '/ws') {
+          // Token kontrolü
+          if (authToken.isNotEmpty &&
+              request.uri.queryParameters['token'] != authToken) {
+            Logger.warning('Yetkisiz erişim denemesi reddedildi.');
+            request.response.statusCode = HttpStatus.forbidden;
+            await request.response.close();
+            return;
+          }
+
+          // Origin kontrolü (CSWH koruması)
+          final origin = request.headers.value('origin');
+          final host = request.headers.value('host');
+          if (origin != null && host != null) {
+            final originUri = Uri.tryParse(origin);
+            if (originUri != null && originUri.host != host.split(':').first) {
+              Logger.warning('Geçersiz Origin reddedildi.');
+              request.response.statusCode = HttpStatus.forbidden;
+              await request.response.close();
+              return;
+            }
+          }
+
           // WebSockets'e yükseltme isteği
           final socket = await WebSocketTransformer.upgrade(request);
           _handleClientConnection(socket);

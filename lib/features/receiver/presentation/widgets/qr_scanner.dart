@@ -7,7 +7,7 @@ import '../../../../core/utils/logger.dart';
 /// Sender'ın QR kodundaki IP:PORT bilgisini okur.
 class QrScanner extends StatefulWidget {
   /// Başarılı taramada IP ve port bilgisi ile çağrılır
-  final void Function(String ip, int port) onScanned;
+  final void Function(String ip, int port, String token) onScanned;
 
   /// Sabit yapıcı
   const QrScanner({super.key, required this.onScanned});
@@ -42,7 +42,7 @@ class _QrScannerState extends State<QrScanner> {
       if (result != null) {
         _hasScanned = true;
         Logger.info('QR koddan IP bilgisi alındı: $value');
-        widget.onScanned(result.$1, result.$2);
+        widget.onScanned(result.$1, result.$2, result.$3);
         return;
       } else {
         setState(() {
@@ -53,9 +53,9 @@ class _QrScannerState extends State<QrScanner> {
   }
 
   /// IP:PORT formatını parse eder (Sender'ın qr_display.dart ile uyumlu)
-  (String, int)? _parseIpPort(String data) {
+  (String, int, String)? _parseIpPort(String data) {
     final parts = data.trim().split(':');
-    if (parts.length != 2) return null;
+    if (parts.length != 3 && parts.length != 2) return null;
 
     final ip = parts[0];
     final port = int.tryParse(parts[1]);
@@ -63,7 +63,8 @@ class _QrScannerState extends State<QrScanner> {
     if (port == null) return null;
     if (!_isValidIp(ip)) return null;
 
-    return (ip, port);
+    final token = parts.length == 3 ? parts[2] : '';
+    return (ip, port, token);
   }
 
   /// IPv4 adres formatı doğrulama
@@ -87,10 +88,10 @@ class _QrScannerState extends State<QrScanner> {
     }
 
     // IP:PORT veya sadece IP kabul et (port yoksa varsayılan 8765)
-    final result = _parseIpPort(input.contains(':') ? input : '$input:8765');
+    final result = _parseIpPort(input.contains(':') ? input : '$input:8765:');
 
     if (result != null) {
-      widget.onScanned(result.$1, result.$2);
+      widget.onScanned(result.$1, result.$2, result.$3);
     } else {
       setState(() => _errorMessage = 'Geçersiz IP adresi: $input');
     }

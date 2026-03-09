@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,6 +31,7 @@ class SenderState {
   final String? errorMessage;
   final bool isTorchOn;
   final bool isTorchAvailable;
+  final String authToken;
 
   const SenderState({
     this.status = ConnectionStatus.initializing,
@@ -40,6 +42,7 @@ class SenderState {
     this.errorMessage,
     this.isTorchOn = false,
     this.isTorchAvailable = false,
+    this.authToken = '',
   });
 
   SenderState copyWith({
@@ -51,6 +54,7 @@ class SenderState {
     String? errorMessage,
     bool? isTorchOn,
     bool? isTorchAvailable,
+    String? authToken,
   }) {
     return SenderState(
       status: status ?? this.status,
@@ -61,6 +65,7 @@ class SenderState {
       errorMessage: errorMessage ?? this.errorMessage,
       isTorchOn: isTorchOn ?? this.isTorchOn,
       isTorchAvailable: isTorchAvailable ?? this.isTorchAvailable,
+      authToken: authToken ?? this.authToken,
     );
   }
 }
@@ -78,6 +83,14 @@ class SenderNotifier extends _$SenderNotifier {
   static const double _alpha = 0.3; // %30 yeni deÄer, %70 geÃ§miÅ
   final Map<int, int> _pendingPings = {};
   int _pingIdCounter = 0;
+
+  String _generateToken() {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    final rnd = Random.secure();
+    return String.fromCharCodes(
+      Iterable.generate(8, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))),
+    );
+  }
 
   @override
   SenderState build() {
@@ -132,7 +145,12 @@ class SenderNotifier extends _$SenderNotifier {
         return;
       }
 
-      state = state.copyWith(status: ConnectionStatus.waiting, localIp: ip);
+      final String token = _generateToken();
+      state = state.copyWith(
+        status: ConnectionStatus.waiting,
+        localIp: ip,
+        authToken: token,
+      );
 
       // 2. Ayarları al ve kamerayı başlat
       final settings = ref.read(settingsNotifierProvider);
@@ -150,7 +168,10 @@ class SenderNotifier extends _$SenderNotifier {
       }
 
       // 3. Signaling (WebSocket) sunucusunu başlat
-      await _signalingServer.start(port: state.port);
+      await _signalingServer.start(
+        port: state.port,
+        authToken: state.authToken,
+      );
 
       // İstemci bağlantı durumunu dinle
       _signalingServer.onClientConnected.listen((isConnected) async {
