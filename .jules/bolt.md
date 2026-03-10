@@ -1,0 +1,3 @@
+## 2026-03-10 - Cached RegExp Compilation in WebRTC Service
+**Learning:** Compiling a `RegExp` inside a string parsing loop (like SDP string manipulation in `optimizeSdp` during WebRTC connection negotiation) is an anti-pattern. It forces redundant object creation and compilation for each iteration, which adds micro-latencies that can stack up in tight loops or repeated operations.
+**Action:** Always move `RegExp` compilation outside of loops. Declare them as `static final` fields when possible to ensure they are compiled exactly once, saving CPU cycles and reducing garbage collection overhead.
