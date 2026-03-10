@@ -1,0 +1,4 @@
+## 2024-05-24 - Prevent Cross-Site WebSocket Hijacking (CSWH)
+**Vulnerability:** The local WebSocket signaling server was upgrading all HTTP requests to WebSockets without validating the origin. Since WebSockets do not have default CORS protections, a malicious website on the same network could perform a Cross-Site WebSocket Hijacking (CSWH) attack, silently connecting to the local server and hijacking the WebRTC camera stream.
+**Learning:** In local peer-to-peer WebSocket implementations, a malicious website loaded by a device on the same network can initiate a WebSocket connection to the local service if there is no explicit origin validation.
+**Prevention:** Always check and validate the `Origin` header (against the `Host` header, or a strict allowlist) before upgrading an HTTP request to a WebSocket connection. If an `Origin` is present and doesn't match the `Host`, reject the connection with a 403 Forbidden status.
