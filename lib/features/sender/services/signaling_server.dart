@@ -27,6 +27,20 @@ class SignalingServer {
 
       _server!.listen((HttpRequest request) async {
         if (request.uri.path == '/ws') {
+          // CSWH Prevention: Validate Origin if present against Host header
+          final origin = request.headers.value('origin');
+          final host = request.headers.value('host');
+
+          if (origin != null && host != null) {
+            final originUri = Uri.tryParse(origin);
+            if (originUri != null && originUri.authority != host) {
+              Logger.warning('CSWH Prevention: Rejected WebSocket connection from invalid Origin: $origin');
+              request.response.statusCode = HttpStatus.forbidden;
+              await request.response.close();
+              return;
+            }
+          }
+
           // WebSockets'e yükseltme isteği
           final socket = await WebSocketTransformer.upgrade(request);
           _handleClientConnection(socket);
