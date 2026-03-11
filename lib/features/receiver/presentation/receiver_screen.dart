@@ -166,8 +166,8 @@ class _ReceiverScreenState extends ConsumerState<ReceiverScreen>
     }
 
     return QrScanner(
-      onScanned: (ip, port) {
-        notifier.connectTo(ip, port);
+      onScanned: (ip, port, token) {
+        notifier.connectTo(ip, port, token);
       },
     );
   }

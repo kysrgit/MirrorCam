@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import '../../../../core/utils/logger.dart';
+import '../../../core/utils/logger.dart';
 
 /// Gönderici cihazda (Kamera) çalışan yerel WebSocket sinyal sunucusu.
 /// Bu sunucu sadece bir istemciyi kabul eder ve WebRTC sinyal verilerini
@@ -20,13 +20,22 @@ class SignalingServer {
   Stream<bool> get onClientConnected => _clientConnectedController.stream;
 
   /// Sunucuyu başlatır
-  Future<void> start({int port = 8765}) async {
+  Future<void> start({int port = 8765, required String authToken}) async {
     try {
       _server = await HttpServer.bind(InternetAddress.anyIPv4, port);
       Logger.info('Sinyal sunucusu $_server.address:$port üzerinde başlatıldı');
 
       _server!.listen((HttpRequest request) async {
         if (request.uri.path == '/ws') {
+          // Check auth token
+          final token = request.uri.queryParameters['token'];
+          if (token != authToken) {
+            Logger.warning('Yetkisiz bağlantı denemesi reddedildi.');
+            request.response.statusCode = HttpStatus.unauthorized;
+            await request.response.close();
+            return;
+          }
+
           // WebSockets'e yükseltme isteği
           final socket = await WebSocketTransformer.upgrade(request);
           _handleClientConnection(socket);

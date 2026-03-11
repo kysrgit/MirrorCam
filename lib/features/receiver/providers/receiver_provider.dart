@@ -108,7 +108,7 @@ class ReceiverNotifier extends _$ReceiverNotifier {
   }
 
   /// QR koddan veya manuel girişten gelen IP:PORT ile bağlantı başlatır
-  Future<void> connectTo(String ip, int port) async {
+  Future<void> connectTo(String ip, int port, String token) async {
     try {
       state = state.copyWith(status: ReceiverConnectionStatus.connecting);
       // ignore: avoid_print
@@ -134,7 +134,7 @@ class ReceiverNotifier extends _$ReceiverNotifier {
       _setupSignalingListeners();
 
       // Sinyal sunucusuna WebSocket uzerinden baglan
-      await _signalingClient.connect(ip, port);
+      await _signalingClient.connect(ip, port, token);
 
       // WebRTC servisini baslat
       await _webrtcService.createConnectionForReceiver();

@@ -284,13 +284,13 @@ class _SenderScreenState extends ConsumerState<SenderScreen>
     }
 
     // Bekleniyor durumu (QR Kod göster)
-    if (state.localIp != null) {
+    if (state.localIp != null && state.authToken != null) {
       return Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            QrDisplay(ipAddress: state.localIp!, port: state.port),
+            QrDisplay(ipAddress: state.localIp!, port: state.port, authToken: state.authToken!),
             const SizedBox(height: 32),
             Row(
                   mainAxisAlignment: MainAxisAlignment.center,

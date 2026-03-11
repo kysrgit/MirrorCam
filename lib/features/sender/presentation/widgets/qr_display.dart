@@ -9,13 +9,16 @@ class QrDisplay extends StatelessWidget {
   /// WebSocket sunucu portu
   final int port;
 
+  /// Kimlik doğrulama token'ı
+  final String authToken;
+
   /// Sabit yapıcı
-  const QrDisplay({super.key, required this.ipAddress, required this.port});
+  const QrDisplay({super.key, required this.ipAddress, required this.port, required this.authToken});
 
   @override
   Widget build(BuildContext context) {
     // Alıcının QR okuyucu ile alacağı veri formatı
-    final qrData = '$ipAddress:$port';
+    final qrData = '$ipAddress:$port:$authToken';
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -52,6 +55,11 @@ class QrDisplay extends StatelessWidget {
           style: Theme.of(
             context,
           ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Şifre: $authToken',
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ],
     );

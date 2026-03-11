@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'dart:math';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/utils/logger.dart';
@@ -30,6 +31,7 @@ class SenderState {
   final String? errorMessage;
   final bool isTorchOn;
   final bool isTorchAvailable;
+  final String? authToken;
 
   const SenderState({
     this.status = ConnectionStatus.initializing,
@@ -40,6 +42,7 @@ class SenderState {
     this.errorMessage,
     this.isTorchOn = false,
     this.isTorchAvailable = false,
+    this.authToken,
   });
 
   SenderState copyWith({
@@ -51,6 +54,7 @@ class SenderState {
     String? errorMessage,
     bool? isTorchOn,
     bool? isTorchAvailable,
+    String? authToken,
   }) {
     return SenderState(
       status: status ?? this.status,
@@ -61,6 +65,7 @@ class SenderState {
       errorMessage: errorMessage ?? this.errorMessage,
       isTorchOn: isTorchOn ?? this.isTorchOn,
       isTorchAvailable: isTorchAvailable ?? this.isTorchAvailable,
+      authToken: authToken ?? this.authToken,
     );
   }
 }
@@ -132,7 +137,17 @@ class SenderNotifier extends _$SenderNotifier {
         return;
       }
 
-      state = state.copyWith(status: ConnectionStatus.waiting, localIp: ip);
+      // 1.5. Güvenlik için token oluştur
+      final random = Random.secure();
+      final token = List<int>.generate(16, (i) => random.nextInt(256))
+          .map((b) => b.toRadixString(16).padLeft(2, '0'))
+          .join();
+
+      state = state.copyWith(
+        status: ConnectionStatus.waiting,
+        localIp: ip,
+        authToken: token,
+      );
 
       // 2. Ayarları al ve kamerayı başlat
       final settings = ref.read(settingsNotifierProvider);
@@ -150,7 +165,7 @@ class SenderNotifier extends _$SenderNotifier {
       }
 
       // 3. Signaling (WebSocket) sunucusunu başlat
-      await _signalingServer.start(port: state.port);
+      await _signalingServer.start(port: state.port, authToken: token);
 
       // İstemci bağlantı durumunu dinle
       _signalingServer.onClientConnected.listen((isConnected) async {

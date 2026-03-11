@@ -7,7 +7,7 @@ import '../../../../core/utils/logger.dart';
 /// Sender'ın QR kodundaki IP:PORT bilgisini okur.
 class QrScanner extends StatefulWidget {
   /// Başarılı taramada IP ve port bilgisi ile çağrılır
-  final void Function(String ip, int port) onScanned;
+  final void Function(String ip, int port, String token) onScanned;
 
   /// Sabit yapıcı
   const QrScanner({super.key, required this.onScanned});
@@ -19,6 +19,7 @@ class QrScanner extends StatefulWidget {
 class _QrScannerState extends State<QrScanner> {
   final MobileScannerController _scannerController = MobileScannerController();
   final TextEditingController _ipController = TextEditingController();
+  final TextEditingController _tokenController = TextEditingController();
   bool _isManualMode = false;
   bool _hasScanned = false;
   String? _errorMessage;
@@ -27,6 +28,7 @@ class _QrScannerState extends State<QrScanner> {
   void dispose() {
     _scannerController.dispose();
     _ipController.dispose();
+    _tokenController.dispose();
     super.dispose();
   }
 
@@ -42,7 +44,7 @@ class _QrScannerState extends State<QrScanner> {
       if (result != null) {
         _hasScanned = true;
         Logger.info('QR koddan IP bilgisi alındı: $value');
-        widget.onScanned(result.$1, result.$2);
+        widget.onScanned(result.$1, result.$2, result.$3);
         return;
       } else {
         setState(() {
@@ -52,18 +54,19 @@ class _QrScannerState extends State<QrScanner> {
     }
   }
 
-  /// IP:PORT formatını parse eder (Sender'ın qr_display.dart ile uyumlu)
-  (String, int)? _parseIpPort(String data) {
+  /// IP:PORT:TOKEN formatını parse eder (Sender'ın qr_display.dart ile uyumlu)
+  (String, int, String)? _parseIpPort(String data) {
     final parts = data.trim().split(':');
-    if (parts.length != 2) return null;
+    if (parts.length < 2) return null;
 
     final ip = parts[0];
     final port = int.tryParse(parts[1]);
+    final token = parts.length > 2 ? parts[2] : '';
 
     if (port == null) return null;
     if (!_isValidIp(ip)) return null;
 
-    return (ip, port);
+    return (ip, port, token);
   }
 
   /// IPv4 adres formatı doğrulama
@@ -81,16 +84,24 @@ class _QrScannerState extends State<QrScanner> {
   /// Manuel IP ile bağlanma
   void _connectManually() {
     final input = _ipController.text.trim();
+    final tokenInput = _tokenController.text.trim();
+
     if (input.isEmpty) {
       setState(() => _errorMessage = 'Lütfen IP adresi girin');
       return;
     }
 
+    if (tokenInput.isEmpty) {
+      setState(() => _errorMessage = 'Lütfen şifre (token) girin');
+      return;
+    }
+
     // IP:PORT veya sadece IP kabul et (port yoksa varsayılan 8765)
-    final result = _parseIpPort(input.contains(':') ? input : '$input:8765');
+    final inputWithPort = input.contains(':') ? input : '$input:8765';
+    final result = _parseIpPort('$inputWithPort:$tokenInput');
 
     if (result != null) {
-      widget.onScanned(result.$1, result.$2);
+      widget.onScanned(result.$1, result.$2, result.$3);
     } else {
       setState(() => _errorMessage = 'Geçersiz IP adresi: $input');
     }
@@ -187,11 +198,25 @@ class _QrScannerState extends State<QrScanner> {
           const SizedBox(height: 24),
           TextField(
             controller: _ipController,
-            keyboardType: TextInputType.number,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
               labelText: 'IP Adresi',
               hintText: '192.168.1.100',
               prefixIcon: const Icon(Icons.language),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            onSubmitted: (_) => _connectManually(),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _tokenController,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              labelText: 'Şifre',
+              hintText: 'abcdef1234567890',
+              prefixIcon: const Icon(Icons.security),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
