@@ -22,6 +22,7 @@ class SignalingClient {
   /// Bağlantı bilgileri
   String? _ip;
   int? _port;
+  String? _authToken;
   bool _isConnected = false;
   bool _intentionalDisconnect = false;
 
@@ -33,9 +34,10 @@ class SignalingClient {
   bool get isConnected => _isConnected;
 
   /// Sender'ın sinyal sunucusuna WebSocket bağlantısı kurar
-  Future<void> connect(String ip, int port) async {
+  Future<void> connect(String ip, int port, String token) async {
     _ip = ip;
     _port = port;
+    _authToken = token;
     _intentionalDisconnect = false;
     _reconnectAttempts = 0;
     await _connect();
@@ -48,8 +50,9 @@ class SignalingClient {
       await _subscription?.cancel();
       unawaited(_channel?.sink.close() ?? Future<void>.value());
 
-      final uri = Uri.parse('ws://$_ip:$_port/ws');
-      Logger.info('WebSocket bağlantısı kuruluyor: $uri');
+      final uri = Uri.parse('ws://$_ip:$_port/ws?token=$_authToken');
+      final safeLogUri = 'ws://$_ip:$_port/ws?token=***';
+      Logger.info('WebSocket bağlantısı kuruluyor: $safeLogUri');
 
       _channel = WebSocketChannel.connect(uri);
 
@@ -61,7 +64,7 @@ class SignalingClient {
       _connectionStateController.add(true);
       Logger.info('WebSocket bağlantısı başarıyla kuruldu');
       // ignore: avoid_print
-      print('[DEBUG-SC] WebSocket CONNECTED to $uri');
+      print('[DEBUG-SC] WebSocket CONNECTED to $safeLogUri');
 
       // Mesajları dinle
       _subscription = _channel!.stream.listen(
