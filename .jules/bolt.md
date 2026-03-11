@@ -1,0 +1,3 @@
+## 2024-05-14 - Cache RegExp compilation outside loops
+**Learning:** In Dart, inline `RegExp(r'...')` inside functions or loops gets recompiled every time it's called. This creates unnecessary overhead, especially in methods like `optimizeSdp` that run during critical WebRTC connection setup.
+**Action:** Always define `RegExp` patterns as `static final` fields at the class level when they are constant, caching the compilation and reducing CPU/GC overhead during execution.
