@@ -27,6 +27,23 @@ class SignalingServer {
 
       _server!.listen((HttpRequest request) async {
         if (request.uri.path == '/ws') {
+          // CSWH (Cross-Site WebSocket Hijacking) Protection
+          // Check Origin header and ensure it matches Host
+          final origin = request.headers.value('origin');
+          final host = request.headers.value('host');
+
+          if (origin != null && host != null) {
+            final originUri = Uri.tryParse(origin);
+            if (originUri != null && originUri.authority != host) {
+              Logger.warning(
+                'CSWH attempt blocked. Origin: $origin, Host: $host',
+              );
+              request.response.statusCode = HttpStatus.forbidden;
+              await request.response.close();
+              return;
+            }
+          }
+
           // WebSockets'e yükseltme isteği
           final socket = await WebSocketTransformer.upgrade(request);
           _handleClientConnection(socket);
