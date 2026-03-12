@@ -5,6 +5,11 @@ import '../models/quality_profile.dart';
 /// Ortak WebRTC işlemleri (PeerConnection yönetimi ve optimizasyon).
 /// Hem Sender hem Receiver tarafından kullanılır.
 class WebRTCService {
+  // ⚡ Optimize: Precompile regex to avoid redundant object creation and compilation during SDP processing
+  static final RegExp _profileLevelIdRegExp = RegExp(
+    r'profile-level-id=[0-9a-fA-F]+',
+  );
+
   RTCPeerConnection? peerConnection;
   RTCDataChannel? dataChannel;
 
@@ -229,7 +234,7 @@ class WebRTCService {
         // profile-level-id değiştir (High Profile)
         if (newLine.contains('profile-level-id=')) {
           newLine = newLine.replaceAll(
-            RegExp(r'profile-level-id=[0-9a-fA-F]+'),
+            _profileLevelIdRegExp,
             'profile-level-id=640c1f',
           );
         } else {
