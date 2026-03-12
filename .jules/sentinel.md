@@ -1,0 +1,4 @@
+## 2025-02-17 - Prevent Cross-Site WebSocket Hijacking (CSWH)
+**Vulnerability:** The local WebSocket signaling server (`SignalingServer`) accepted connection upgrades (`WebSocketTransformer.upgrade`) without validating the `Origin` header. This could allow a malicious website running in the user's browser to connect to the local signaling server (`ws://127.0.0.1:8765/ws`) and spoof or intercept WebRTC signaling data.
+**Learning:** Local servers, even though not exposed to the public internet, are still vulnerable to CSWH if accessed from a user's browser via a malicious site. Validating the `Origin` header against the expected host is crucial for local services.
+**Prevention:** Always check `request.headers.value('origin')` against `request.headers.value('host')` (or `originUri.authority != host`) before allowing a WebSocket upgrade, even for local/development servers. Reject requests that have a mismatched origin with a `403 Forbidden` response.
