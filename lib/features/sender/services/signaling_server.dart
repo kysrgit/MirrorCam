@@ -27,6 +27,20 @@ class SignalingServer {
 
       _server!.listen((HttpRequest request) async {
         if (request.uri.path == '/ws') {
+          // Cross-Site WebSocket Hijacking (CSWH) koruması
+          final origin = request.headers.value('origin');
+          final host = request.headers.host;
+
+          if (origin != null && host != null) {
+            final originUri = Uri.tryParse(origin);
+            if (originUri == null || originUri.host != host.split(':').first) {
+              Logger.warning('Reddedilen WebSocket bağlantısı: Origin ($origin) Host ($host) ile eşleşmiyor');
+              request.response.statusCode = HttpStatus.forbidden;
+              await request.response.close();
+              return;
+            }
+          }
+
           // WebSockets'e yükseltme isteği
           final socket = await WebSocketTransformer.upgrade(request);
           _handleClientConnection(socket);
