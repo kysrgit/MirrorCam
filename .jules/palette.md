@@ -1,0 +1,3 @@
+## 2025-03-13 - Custom Flutter Buttons Accessibility & Ripple Feedback
+**Learning:** Found that wrapping a `Container` with `GestureDetector` loses native touch ripple feedback and is less accessible for screen readers. Using `Semantics(button: true)` with `Material` and `InkWell` provides a much better UX for custom buttons. In particular, custom bounding boxes on ink wells are often useful (e.g. `borderRadius: BorderRadius.circular(8)`) so ripples match the visual geometry.
+**Action:** When making custom icon/text buttons (like `_ControlButton`), always prefer `Semantics(button: true) > Material(color: transparent) > InkWell > Ink(child: Icon...)` over `GestureDetector(child: Container(...))`. This ensures both visual touch feedback and screen reader support.
