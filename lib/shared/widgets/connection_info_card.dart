@@ -83,71 +83,79 @@ class _ConnectionInfoCardState extends State<ConnectionInfoCard>
         position: _offset,
         child: FadeTransition(
           opacity: _opacity,
-          child: GestureDetector(
-            onTap: _dismiss,
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1E1E1E), // Koyu arkaplan
+          child: Semantics(
+            button: true,
+            label: 'Bağlantı bilgisini gizle',
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: _dismiss,
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withAlpha(100),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
+                child: Ink(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1E1E1E), // Koyu arkaplan
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(100),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                    border: Border.all(
+                      color: Colors.green.withAlpha(100),
+                      width: 1,
+                    ),
                   ),
-                ],
-                border: Border.all(
-                  color: Colors.green.withAlpha(100),
-                  width: 1,
-                ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(
-                        Icons.check_circle,
-                        color: Colors.greenAccent,
-                        size: 24,
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.check_circle,
+                            color: Colors.greenAccent,
+                            size: 24,
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              'Bağlantı kuruldu!',
+                              style: Theme.of(context).textTheme.titleMedium
+                                  ?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                          const Icon(Icons.close, color: Colors.grey, size: 20),
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          'Bağlantı kuruldu!',
-                          style: Theme.of(context).textTheme.titleMedium
-                              ?.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
+                      const SizedBox(height: 12),
+                      const Divider(color: Colors.white24, height: 1),
+                      const SizedBox(height: 12),
+                      _buildInfoRow(
+                        Icons.wifi,
+                        'Bağlantı',
+                        'Lokal Ağ (${widget.ipAddress})',
                       ),
-                      const Icon(Icons.close, color: Colors.grey, size: 20),
+                      const SizedBox(height: 6),
+                      _buildInfoRow(
+                        Icons.hd,
+                        'Kalite',
+                        '${widget.qualityProfile.label} (${widget.qualityProfile.height}p ${widget.qualityProfile.fps}fps)',
+                      ),
+                      const SizedBox(height: 6),
+                      _buildInfoRow(
+                        Icons.speed,
+                        'Gecikme',
+                        '~${widget.latencyMs}ms',
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 12),
-                  const Divider(color: Colors.white24, height: 1),
-                  const SizedBox(height: 12),
-                  _buildInfoRow(
-                    Icons.wifi,
-                    'Bağlantı',
-                    'Lokal Ağ (${widget.ipAddress})',
-                  ),
-                  const SizedBox(height: 6),
-                  _buildInfoRow(
-                    Icons.hd,
-                    'Kalite',
-                    '${widget.qualityProfile.label} (${widget.qualityProfile.height}p ${widget.qualityProfile.fps}fps)',
-                  ),
-                  const SizedBox(height: 6),
-                  _buildInfoRow(
-                    Icons.speed,
-                    'Gecikme',
-                    '~${widget.latencyMs}ms',
-                  ),
-                ],
+                ),
               ),
             ),
           ),
