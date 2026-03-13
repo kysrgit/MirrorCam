@@ -1,0 +1,4 @@
+## 2024-05-24 - Cross-Site WebSocket Hijacking (CSWH) in Local Signaling Server
+**Vulnerability:** The local WebSocket signaling server (`SignalingServer` at `/ws`) lacked `Origin` header validation. A malicious website accessed by the device could execute a Cross-Site WebSocket Hijacking (CSWH) attack to communicate with the local server, potentially gaining access to sensitive signaling data.
+**Learning:** Local WebSocket servers running on devices are still vulnerable to CSWH if accessed from browsers where malicious pages could upgrade arbitrary connections to `ws://127.0.0.1:8765` or `ws://[local_ip]:8765`.
+**Prevention:** Always implement `Origin` header validation against the `Host` header for local WebSocket servers to ensure that the request originates from a trusted context (or allow connections without an `Origin` header, representing native app clients).
