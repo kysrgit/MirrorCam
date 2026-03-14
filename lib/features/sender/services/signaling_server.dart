@@ -27,6 +27,22 @@ class SignalingServer {
 
       _server!.listen((HttpRequest request) async {
         if (request.uri.path == '/ws') {
+          // Origin check for Cross-Site WebSocket Hijacking (CSWH) prevention
+          final originList = request.headers['origin'];
+          if (originList != null && originList.isNotEmpty) {
+            final origin = originList.first;
+            final originHost = Uri.tryParse(origin)?.host;
+            // Use request.requestedUri.host to properly handle IPv4 and IPv6 without port issues
+            final host = request.requestedUri.host;
+
+            if (originHost != host) {
+              Logger.warning('CSWH blocked: Origin $origin does not match host $host');
+              request.response.statusCode = HttpStatus.forbidden;
+              await request.response.close();
+              return;
+            }
+          }
+
           // WebSockets'e yükseltme isteği
           final socket = await WebSocketTransformer.upgrade(request);
           _handleClientConnection(socket);
