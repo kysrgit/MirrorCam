@@ -187,7 +187,7 @@ class _QrScannerState extends State<QrScanner> {
           const SizedBox(height: 24),
           TextField(
             controller: _ipController,
-            keyboardType: TextInputType.number,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
               labelText: 'IP Adresi',
               hintText: '192.168.1.100',
