@@ -1,0 +1,3 @@
+## 2026-05-15 - Improve Button UX and Accessibility
+**Learning:** For custom buttons composed of multiple widgets (e.g., an Icon and Text in a Column), wrapping the entire interactive area in a `GestureDetector` removes native ripple feedback and screen reader accessibility. Users rely on visual touch feedback to confirm actions and screen readers need to know an element is interactive.
+**Action:** Replace `GestureDetector` wrappers around `Container`s with `Material(color: Colors.transparent)` containing an `InkWell` and `Ink`. Always wrap the custom button in `Semantics(button: true)` to ensure screen readers announce it properly as an interactive button. Use `borderRadius` on the `InkWell` to constrain the ripple correctly.
