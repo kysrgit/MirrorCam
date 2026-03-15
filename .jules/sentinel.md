@@ -1,0 +1,4 @@
+## 2024-05-18 - Cross-Site WebSocket Hijacking (CSWH) in Signaling Server
+**Vulnerability:** The `SignalingServer` used by the Sender accepted WebSocket upgrade requests without validating the `Origin` header. An attacker on a malicious site could make a cross-site WebSocket request to the local server (e.g. `ws://192.168.1.10:8765/ws`) and hijack the signaling session if the target was actively broadcasting.
+**Learning:** `HttpServer` binding to local IP ports does not automatically protect against cross-origin requests. Browsers send the `Origin` header during the WebSocket upgrade handshake.
+**Prevention:** Always validate `request.headers['origin']?.first` by parsing its host (`Uri.tryParse(origin)?.host`) and checking if it matches the `request.requestedUri.host` before calling `WebSocketTransformer.upgrade()`. Reject mismatched origins with `HttpStatus.forbidden`.
