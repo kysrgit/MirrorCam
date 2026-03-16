@@ -8,6 +8,9 @@ class WebRTCService {
   RTCPeerConnection? peerConnection;
   RTCDataChannel? dataChannel;
 
+  /// Optimized RegExp for SDP replacement to avoid compilation in loops
+  static final _profileLevelIdRegex = RegExp(r'profile-level-id=[0-9a-fA-F]+');
+
   /// Remote stream geldiğinde çağrılacak callback
   void Function(MediaStream stream)? onRemoteStream;
 
@@ -229,7 +232,7 @@ class WebRTCService {
         // profile-level-id değiştir (High Profile)
         if (newLine.contains('profile-level-id=')) {
           newLine = newLine.replaceAll(
-            RegExp(r'profile-level-id=[0-9a-fA-F]+'),
+            _profileLevelIdRegex,
             'profile-level-id=640c1f',
           );
         } else {
