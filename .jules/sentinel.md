@@ -1,0 +1,4 @@
+## 2024-05-24 - Add Origin validation to WebSocket signaling server
+**Vulnerability:** The local WebSocket server (`/ws` path) lacked Origin header validation, making it susceptible to Cross-Site WebSocket Hijacking (CSWH) if a user visits a malicious website while the server is running on their local network.
+**Learning:** Dart's `HttpServer` doesn't enforce Origin checks by default for WebSockets. Local WebSocket servers are particularly vulnerable to CSWH because browsers automatically attach ambient credentials (or simply allow the connection if no auth is required) to localhost/local network requests.
+**Prevention:** Always validate the `Origin` header (if present) against the `request.requestedUri.host` before upgrading the HTTP request to a WebSocket connection, rejecting mismatches with `HttpStatus.forbidden`.
