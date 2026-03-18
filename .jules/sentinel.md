@@ -1,0 +1,4 @@
+## 2024-05-24 - Cross-Site WebSocket Hijacking (CSWH) Fix
+**Vulnerability:** The local WebSocket server (`SignalingServer`) accepted WebSocket upgrades on the `/ws` endpoint without verifying the `Origin` header. This could allow malicious websites to initiate a connection to the local signaling server running on the user's device (CSWH).
+**Learning:** In Dart `HttpServer`, validating the origin must be done safely since there is no `HttpHeaders.originHeader` constant, and there may be multiple `origin` headers. Parsing the origin using `Uri.tryParse(origin)?.host` and comparing it to `request.requestedUri.host` correctly verifies that the connection was initiated by an authorized local client.
+**Prevention:** Always implement an `Origin` header check on local WebSocket servers that accept connections from the browser or local clients, and reject mismatched hosts with `HttpStatus.forbidden`.
