@@ -370,12 +370,14 @@ class ReceiverNotifier extends _$ReceiverNotifier {
     if (_pendingCandidates.isEmpty) return;
 
     Logger.info(
-      '${_pendingCandidates.length} bekleyen ICE candidate ekleniyor...',
+      '${_pendingCandidates.length} bekleyen ICE candidate ekleniyor (concurrent)...',
     );
 
-    for (final candidate in _pendingCandidates) {
-      await _webrtcService.addIceCandidate(candidate);
-    }
+    // ⚡ Bolt: Gecikmeyi düşürmek için candidate'ları paralel olarak ekle
+    await Future.wait(
+      _pendingCandidates.map((candidate) => _webrtcService.addIceCandidate(candidate))
+    );
+
     _pendingCandidates.clear();
   }
 
