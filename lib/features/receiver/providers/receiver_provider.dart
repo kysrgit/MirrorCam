@@ -373,9 +373,12 @@ class ReceiverNotifier extends _$ReceiverNotifier {
       '${_pendingCandidates.length} bekleyen ICE candidate ekleniyor...',
     );
 
-    for (final candidate in _pendingCandidates) {
-      await _webrtcService.addIceCandidate(candidate);
-    }
+    // ⚡ Bolt: Parallelize ICE candidate addition to reduce connection setup time
+    await Future.wait(
+      _pendingCandidates.map(
+        (candidate) => _webrtcService.addIceCandidate(candidate),
+      ),
+    );
     _pendingCandidates.clear();
   }
 
