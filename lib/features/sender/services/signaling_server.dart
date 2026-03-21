@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import '../../../../core/utils/logger.dart';
+import '../../../core/utils/logger.dart';
 
 /// Gönderici cihazda (Kamera) çalışan yerel WebSocket sinyal sunucusu.
 /// Bu sunucu sadece bir istemciyi kabul eder ve WebRTC sinyal verilerini
@@ -19,6 +19,9 @@ class SignalingServer {
   final _clientConnectedController = StreamController<bool>.broadcast();
   Stream<bool> get onClientConnected => _clientConnectedController.stream;
 
+  /// Dinlenen port numarası (testler için dinamik atandığında gerekli olabilir)
+  int get port => _server?.port ?? 0;
+
   /// Sunucuyu başlatır
   Future<void> start({int port = 8765}) async {
     try {
@@ -27,6 +30,22 @@ class SignalingServer {
 
       _server!.listen((HttpRequest request) async {
         if (request.uri.path == '/ws') {
+          // Cross-Site WebSocket Hijacking (CSWSH) Koruması
+          // İstemcinin Origin başlığı ile sunucunun adresi uyuşmalı
+          final origin = request.headers['origin']?.first;
+          if (origin != null) {
+            final originHost = Uri.tryParse(origin)?.host;
+            final requestedHost = request.requestedUri.host;
+            if (originHost != null && originHost != requestedHost) {
+              Logger.warning(
+                'CSWSH girişimi engellendi! Origin: $originHost, İstenen: $requestedHost',
+              );
+              request.response.statusCode = HttpStatus.forbidden;
+              await request.response.close();
+              return;
+            }
+          }
+
           // WebSockets'e yükseltme isteği
           final socket = await WebSocketTransformer.upgrade(request);
           _handleClientConnection(socket);
